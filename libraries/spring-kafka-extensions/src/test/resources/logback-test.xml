@@ -1,0 +1,12 @@
+<configuration>
+    <appender name="plain-console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %-40.40logger{39} : %m%n
+            </Pattern>
+        </layout>
+    </appender>
+    <root level="info">
+        <appender-ref ref="plain-console"/>
+    </root>
+</configuration>
