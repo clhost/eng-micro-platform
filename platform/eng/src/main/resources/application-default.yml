@@ -1,0 +1,9 @@
+server:
+  jetty:
+    threads:
+      min: 20
+      max: 20
+  port: 11111
+client:
+  urban-dictionary:
+    url: https://api.urbandictionary.com

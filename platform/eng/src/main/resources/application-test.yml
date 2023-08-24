@@ -1,0 +1,12 @@
+server:
+  jetty:
+    threads:
+      min: 20
+      max: 20
+  port: 11111
+wiremock:
+  server:
+    port: 8088
+client:
+  urban-dictionary:
+    url: http://localhost:${wiremock.server.port}

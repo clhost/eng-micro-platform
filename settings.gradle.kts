@@ -1,5 +1,11 @@
 rootProject.name = "eng-micro-platform"
 
+pluginManagement {
+    repositories {
+        maven { url = uri("https://plugins.gradle.org/m2/") }
+    }
+}
+
 // libraries
 
 include(":ktor-extensions")
@@ -20,8 +26,8 @@ project(":spring-kafka-extensions").projectDir = File("libraries/spring-kafka-ex
 include(":spring-web-extensions")
 project(":spring-web-extensions").projectDir = File("libraries/spring-web-extensions")
 
-include(":outbox")
-project(":outbox").projectDir = File("libraries/outbox")
+include(":faults-language")
+project(":faults-language").projectDir = File("libraries/faults-language")
 
 // platform
 

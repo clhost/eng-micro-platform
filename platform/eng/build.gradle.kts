@@ -8,6 +8,10 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
 }
 
+springBoot {
+    buildInfo()
+}
+
 tasks {
     test {
         useJUnitPlatform()
@@ -26,26 +30,36 @@ tasks {
             allWarningsAsErrors = true
         }
     }
-    jar {
-        enabled = true
+    bootJar {
+        archiveFileName.set("app.jar")
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2022.0.4")
     }
 }
 
 dependencies {
+    implementation(project(":faults-language"))
     implementation(project(":jackson-extensions"))
     implementation(project(":ktor-extensions"))
     implementation(project(":stdlib-extensions"))
     implementation(project(":spring-kafka-extensions"))
     implementation(project(":spring-web-extensions"))
 
-    implementation("org.springframework.kafka:spring-kafka")
+    // implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    // implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("io.micrometer:micrometer-registry-prometheus:1.11.3")
 
     testImplementation(project(":test-extensions"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")

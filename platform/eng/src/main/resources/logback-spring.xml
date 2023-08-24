@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <contextName>gate-orchestrator</contextName>
+
+    <appender name="json-console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <jsonGeneratorDecorator
+                    class="ru.itasystems.library.sensitivedatamasker.SensitiveMaskingJsonGeneratorDecorator">
+                <value>email</value>
+                <value>phone</value>
+                <value>phoneNumber</value>
+                <value>cardNo</value>
+                <value>cardHolder</value>
+                <value>expirationYear</value>
+                <value>expirationMonth</value>
+                <value>number</value>
+                <value>cvv</value>
+                <value>cardholderName</value>
+                <value>firstName</value>
+                <value>lastName</value>
+                <value>pocketName</value>
+                <value>pocketReference</value>
+                <value>paymentAccount</value>
+                <value>paymentPurpose</value>
+                <value>username</value>
+                <value>password</value>
+                <value>pam</value>
+                <value>externalAccount</value>
+                <value>description</value>
+                <value>senderMessage</value>
+                <value>recipientPhone</value>
+                <value>senderPhoneNumber</value>
+                <value>senderMessage</value>
+                <value>ekassirPassword</value>
+                <value>apiPassword</value>
+                <value>notificationPassword</value>
+                <value>wsPassword</value>
+                <value>terminalPassword</value>
+                <valueMasker class="ru.itasystems.library.sensitivedatamasker.SensitiveDataMasker"/>
+            </jsonGeneratorDecorator>
+            <providers>
+                <contextName>
+                    <fieldName>app</fieldName>
+                </contextName>
+                <timestamp>
+                    <fieldName>ts</fieldName>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <callerData>
+                    <classFieldName>class</classFieldName>
+                    <methodFieldName>method</methodFieldName>
+                    <lineFieldName>line</lineFieldName>
+                    <fileFieldName>file</fileFieldName>
+                </callerData>
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+                <mdc/>
+                <arguments>
+                    <includeNonStructuredArguments>false</includeNonStructuredArguments>
+                </arguments>
+                <stackTrace>
+                    <fieldName>stack</fieldName>
+                    <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                        <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                    </throwableConverter>
+                </stackTrace>
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                    <pattern>{"msg":"%.-16384msg"}</pattern>
+                </provider>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="plain-console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %-40.40logger{39} : %m%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <springProfile name="default | test | ci_test">
+        <root level="info">
+            <level value="info"/>
+            <appender-ref ref="plain-console"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!default &amp; !test &amp; !ci_test">
+        <root level="info">
+            <level value="info"/>
+            <appender-ref ref="json-console"/>
+        </root>
+        <logger name="com.zaxxer.hikari">
+            <level value="debug"/>
+            <appender-ref ref="json-console"/>
+        </logger>
+        <logger name="ru.itasystems.app.application.listener">
+            <level value="debug"/>
+            <appender-ref ref="json-console"/>
+        </logger>
+    </springProfile>
+
+</configuration>
