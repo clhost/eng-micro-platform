@@ -19,11 +19,21 @@ class ClientsConfiguration(
 
     @Bean
     fun urbanDictionaryKtorClient() = createKtorClient {
-        useLogging()
+        useLogging(logBody = false)
         useCorrelationId()
         useTimeouts(10000, 10000, 10000)
         usePoolConnections(20, 20)
         useJson(standardObjectMapper)
-        useMeasurement("urban-dictionary", meterRegistry)
+        useMeasurement("urbandictionary.com", meterRegistry)
+    }
+
+    @Bean
+    fun dictionaryKtorClient() = createKtorClient {
+        useLogging(logBody = false)
+        useCorrelationId()
+        useTimeouts(10000, 10000, 10000)
+        usePoolConnections(20, 20)
+        useJson(standardObjectMapper)
+        useMeasurement("dictionary.com", meterRegistry)
     }
 }

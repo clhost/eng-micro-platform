@@ -8,6 +8,9 @@ pluginManagement {
 
 // libraries
 
+include(":html-extensions")
+project(":html-extensions").projectDir = File("libraries/html-extensions")
+
 include(":ktor-extensions")
 project(":ktor-extensions").projectDir = File("libraries/ktor-extensions")
 

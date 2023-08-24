@@ -43,6 +43,7 @@ dependencyManagement {
 
 dependencies {
     implementation(project(":faults-language"))
+    implementation(project(":html-extensions"))
     implementation(project(":jackson-extensions"))
     implementation(project(":ktor-extensions"))
     implementation(project(":stdlib-extensions"))

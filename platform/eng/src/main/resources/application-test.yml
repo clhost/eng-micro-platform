@@ -10,3 +10,6 @@ wiremock:
 client:
   urban-dictionary:
     url: http://localhost:${wiremock.server.port}
+  dictionary:
+    direct-url: http://localhost:${wiremock.server.port}
+    api-url: http://localhost:${wiremock.server.port}

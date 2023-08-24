@@ -7,3 +7,6 @@ server:
 client:
   urban-dictionary:
     url: https://api.urbandictionary.com
+  dictionary:
+    direct-url: https://www.dictionary.com
+    api-url: https://api-portal.dictionary.com/dcom

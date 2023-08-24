@@ -1,5 +1,6 @@
 package io.clhost.platform.eng.application.client
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.clhost.extension.ktor.client.plugin.label
 import io.clhost.extension.ktor.client.runBlockingWithPreservedCorrelationId
 import io.ktor.client.HttpClient
@@ -20,21 +21,39 @@ class UrbanDictionaryClient(
 ) {
 
     fun getDefinitions(word: String) = runBlockingWithPreservedCorrelationId {
-        client.get("$url/v0/define?term=$word") {
+        var page = 1
+        val definitions = mutableListOf<UrbanDictionaryDefinition>()
+
+        do {
+            val definitionsOnPage = getDefinitionsOnPage(word, page++)
+            definitions.addAll(definitionsOnPage)
+        } while (definitionsOnPage.isNotEmpty())
+
+        definitions
+    }
+
+    private fun getDefinitionsOnPage(word: String, page: Int) = runBlockingWithPreservedCorrelationId {
+        client.get("$url/v0/define?term=$word&page=$page") {
             label("getDefinition")
-        }.body<Definitions>().list
+        }.body<UrbanDictionaryDefinitions>().list
     }
 }
 
-data class Definitions(
-    val list: List<Definition>
+data class UrbanDictionaryDefinitions(
+    val list: List<UrbanDictionaryDefinition>
 )
 
-data class Definition(
+data class UrbanDictionaryDefinition(
     val author: String,
     val definition: String,
     val example: String,
+
+    @field:JsonProperty("thumbs_up")
     val thumbsUp: Int,
+
+    @field:JsonProperty("thumbs_down")
     val thumbsDown: Int,
+
+    @field:JsonProperty("written_on")
     val writtenOn: OffsetDateTime
 )
