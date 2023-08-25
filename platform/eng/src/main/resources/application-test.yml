@@ -13,3 +13,7 @@ client:
   dictionary:
     direct-url: http://localhost:${wiremock.server.port}
     api-url: http://localhost:${wiremock.server.port}
+  yandex-cloud-translate:
+    url: http://localhost:${wiremock.server.port}
+    folder-id: folder-id
+    iam-token: iam-token

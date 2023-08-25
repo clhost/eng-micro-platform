@@ -10,3 +10,7 @@ client:
   dictionary:
     direct-url: https://www.dictionary.com
     api-url: https://api-portal.dictionary.com/dcom
+  yandex-cloud-translate:
+    url: https://translate.api.cloud.yandex.net/translate/v2/translate
+    folder-id: b1gigl5qq3r2gsne83s2
+    iam-token: t1.9euelZqOjsqalInGkZeMk4-WjMvJze3rnpWakImUzs3LnJ6akZiejMrIzpTl8_c3Ml1Y-e8XICk7_d3z93dgWlj57xcgKTv9zef1656VmpqJnpGdzI2JmZ6Oysyaj4-X7_zF656VmpqJnpGdzI2JmZ6Oysyaj4-X.QS2XukN9SUaO7wzn0k9aQoVQjt5FmF0IrQ-xd91fGbuFTY2lLPky_tRk7dHAYiYkyIl22U_h-FdCgdfdm9uOBA

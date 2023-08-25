@@ -9,6 +9,8 @@ import io.clhost.extension.ktor.client.useMeasurement
 import io.clhost.extension.ktor.client.usePoolConnections
 import io.clhost.extension.ktor.client.useTimeouts
 import io.micrometer.core.instrument.MeterRegistry
+import java.net.URI
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -18,22 +20,41 @@ class ClientsConfiguration(
 ) {
 
     @Bean
-    fun urbanDictionaryKtorClient() = createKtorClient {
+    fun urbanDictionaryKtorClient(
+        @Value("\${client.urban-dictionary.url}")
+        url: String
+    ) = createKtorClient {
         useLogging(logBody = false)
         useCorrelationId()
         useTimeouts(10000, 10000, 10000)
         usePoolConnections(20, 20)
         useJson(standardObjectMapper)
-        useMeasurement("urbandictionary.com", meterRegistry)
+        useMeasurement(URI(url).host, meterRegistry)
     }
 
     @Bean
-    fun dictionaryKtorClient() = createKtorClient {
+    fun dictionaryKtorClient(
+        @Value("\${client.dictionary.direct-url}")
+        url: String
+    ) = createKtorClient {
         useLogging(logBody = false)
         useCorrelationId()
         useTimeouts(10000, 10000, 10000)
         usePoolConnections(20, 20)
         useJson(standardObjectMapper)
-        useMeasurement("dictionary.com", meterRegistry)
+        useMeasurement(URI(url).host, meterRegistry)
+    }
+
+    @Bean
+    fun yandexCloudTranslateKtorClient(
+        @Value("\${client.yandex-cloud-translate.url}")
+        url: String
+    ) = createKtorClient {
+        useLogging(logBody = false)
+        useCorrelationId()
+        useTimeouts(10000, 10000, 10000)
+        usePoolConnections(20, 20)
+        useJson(standardObjectMapper)
+        useMeasurement(URI(url).host, meterRegistry)
     }
 }

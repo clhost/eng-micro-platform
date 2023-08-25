@@ -45,7 +45,7 @@ class DictionaryClient(
 
         definitions.map {
             DictionaryDefinition(
-                definition = it.definition,
+                definition = extractTextFromHtml(it.definition),
                 ipa = ipa,
                 partOfSpeech = extractTextFromHtml(it.partOfSpeech),
                 pronunciationUrl = pronunciationUrl,
