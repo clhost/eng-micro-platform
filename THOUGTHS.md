@@ -11,6 +11,15 @@ Main parts are:
 3. Flexible revise algorithm
 4. Direct translation to Russian (should I do it choosable?)
 
+## integrations
+
+In here I have:
+
+1. All data for a word from urbandictionary (need to find out how to clarify if the passed word is for urban) - 
+   just to avoid redundant api calls.
+2. All meanings for a word from dictionary, pronunciation and synonyms
+3. Translation for a word from yandex cloud
+
 ## connectors
 
 As separate modules, should be three in the start:

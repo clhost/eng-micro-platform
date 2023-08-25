@@ -28,9 +28,6 @@ class DictionaryClient(
     }
 
     fun getDefinitions(word: String) = runBlockingWithPreservedCorrelationId {
-        val synonyms = getSynonyms(word)
-            .data.synonyms.map { it.term }
-
         val html = getRawHtmlPage(word)
 
         val json = extractTextFromHtml(html, replacementKey)
@@ -48,23 +45,24 @@ class DictionaryClient(
                 definition = extractTextFromHtml(it.definition),
                 ipa = ipa,
                 partOfSpeech = extractTextFromHtml(it.partOfSpeech),
-                pronunciationUrl = pronunciationUrl,
-                synonyms = synonyms
+                pronunciationUrl = pronunciationUrl
             )
         }
     }
 
+    fun getSynonyms(word: String) = runBlockingWithPreservedCorrelationId {
+        client.get("$apiUrl/synonyms/$word") {
+            label("getSynonyms")
+        }.body<DictionarySynonymsBlock>().data.synonyms.map { it.term }
+    }
+
     private suspend fun getRawHtmlPage(word: String) =
         client.get("$directUrl/browse/$word") { label("getRawHtmlPage") }.body<String>()
-
-    private suspend fun getSynonyms(word: String) =
-        client.get("$apiUrl/synonyms/$word") { label("getSynonyms") }.body<DictionarySynonymsBlock>()
 }
 
 data class DictionaryDefinition(
     val definition: String? = null,
     val ipa: String? = null,
     val partOfSpeech: String? = null,
-    val pronunciationUrl: String? = null,
-    val synonyms: List<String> = listOf()
+    val pronunciationUrl: String? = null
 )
