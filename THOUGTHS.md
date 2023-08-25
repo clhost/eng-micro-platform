@@ -27,3 +27,6 @@ As separate modules, should be three in the start:
 1. Telegram bot - entrypoint for interacting with core (the first UI)
 2. Typora importer - scan data from my own md files and push them
 3. UI - a website based on mkdocs with feature can be found in Github as plugins
+
+
+set -U fish_user_paths $PATH_TO_BIN $fish_user_paths

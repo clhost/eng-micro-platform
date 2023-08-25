@@ -4,6 +4,31 @@ server:
       min: 20
       max: 20
   port: 11111
+spring:
+  datasource:
+    hikari:
+      idle-timeout: 10000
+      connection-timeout: 1000
+      minimum-idle: 2
+      maximum-pool-size: 2
+      pool-name: ${spring.application.name}
+    url: jdbc:postgresql://localhost:5432/${spring.application.name}
+    username: postgres
+    password: pwd
+  kafka:
+    bootstrap-servers: localhost:9092
+    listener:
+      concurrency: 8
+      missing-topics-fatal: false
+      ack-mode: manual_immediate
+    consumer:
+      auto-offset-reset: earliest
+      group-id: ${spring.application.name}
+    producer:
+      client-id: ${spring.application.name}
+      properties:
+        interceptor:
+          classes: io.clhost.extension.kafka.KafkaProducerLoggingInterceptor
 client:
   urban-dictionary:
     url: https://api.urbandictionary.com

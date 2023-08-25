@@ -1,0 +1,44 @@
+version: '3'
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.70.0/24
+services:
+  postgresql:
+    container_name: eng-micro-platform-postgres
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_DB: eng-micro-platform
+    volumes:
+      - ~/eng-micro-platform/pgdata:/var/lib/postgresql/data
+  zookeeper:
+    container_name: eng-micro-platform-zookeper
+    image: bitnami/zookeeper:latest
+    ports:
+      - 2181:2181
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    volumes:
+      - ~/eng-micro-platform/zoodata:/var/lib/zookeeper/data
+      - ~/eng-micro-platform/zoolog:/var/lib/zookeeper/log
+  kafka:
+    container_name: eng-micro-platform-kafka
+    image: bitnami/kafka:latest
+    ports:
+      - 9092:9092
+    tty: true
+    stdin_open: true
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    volumes:
+      - ~/eng-micro-platform/kafkadata:/var/lib/kafka/data
+    depends_on:
+      - zookeeper
