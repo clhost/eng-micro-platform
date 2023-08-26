@@ -2,7 +2,6 @@ package io.clhost.platform.eng.application.client
 
 import io.clhost.extension.ktor.client.applicationJson
 import io.clhost.extension.ktor.client.plugin.label
-import io.clhost.extension.ktor.client.runBlockingWithPreservedCorrelationId
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.bearerAuth
@@ -27,14 +26,14 @@ class YandexCloudTranslateClient(
     private val client: HttpClient
 ) {
 
-    fun translateEnToRu(word: String) = runBlockingWithPreservedCorrelationId {
+    suspend fun translateEnToRu(word: String): String? {
         val request = TranslationRequest(
             folderId = folderId,
             texts = listOf(word),
             sourceLanguageCode = "en",
             targetLanguageCode = "ru"
         )
-        client.post(url) {
+        return client.post(url) {
             applicationJson()
             setBody(request)
             label("translateEnToRu")

@@ -2,7 +2,6 @@ package io.clhost.platform.eng.application.client
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.clhost.extension.ktor.client.plugin.label
-import io.clhost.extension.ktor.client.runBlockingWithPreservedCorrelationId
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -20,7 +19,7 @@ class UrbanDictionaryClient(
     private val client: HttpClient
 ) {
 
-    fun getDefinitions(word: String) = runBlockingWithPreservedCorrelationId {
+    suspend fun getDefinitions(word: String): List<UrbanDictionaryDefinition> {
         var page = 1
         val definitions = mutableListOf<UrbanDictionaryDefinition>()
 
@@ -29,17 +28,16 @@ class UrbanDictionaryClient(
             definitions.addAll(definitionsOnPage)
         } while (definitionsOnPage.isNotEmpty())
 
-        definitions
+        return definitions
     }
 
-    private fun getDefinitionsOnPage(word: String, page: Int) = runBlockingWithPreservedCorrelationId {
+    private suspend fun getDefinitionsOnPage(word: String, page: Int) =
         client.get("$url/v0/define?term=$word&page=$page") {
             label("getDefinition")
         }.body<UrbanDictionaryDefinitions>().list
-    }
 }
 
-data class UrbanDictionaryDefinitions(
+internal data class UrbanDictionaryDefinitions(
     val list: List<UrbanDictionaryDefinition>
 )
 

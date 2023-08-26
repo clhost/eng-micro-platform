@@ -2,11 +2,11 @@ package io.clhost.platform.eng.domain
 
 import io.clhost.language.faults.BusinessLogicException
 
-class WordNotFound(
+class WordDefinitionNotFound(
     word: String
 ) : BusinessLogicException(
-    "wordNotFound",
-    "Word not found (word=$word)"
+    "wordDefinitionNotFound",
+    "Word definition not found (word=$word)"
 )
 
 class WordViolatedInvariant(

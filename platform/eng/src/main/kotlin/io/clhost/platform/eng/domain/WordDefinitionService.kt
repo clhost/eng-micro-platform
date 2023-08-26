@@ -7,7 +7,7 @@ class WordDefinitionService(
     private val wordDefinitionRepository: WordDefinitionRepository
 ) {
 
-    fun get(word: String) = wordDefinitionRepository.get(word)
+    fun get(word: String) = wordDefinitionRepository.get(word) ?: throw WordDefinitionNotFound(word)
 
     fun create(word: String): WordDefinition {
         val wordDefinition = WordDefinition(word).apply {

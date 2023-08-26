@@ -2,21 +2,21 @@ package io.clhost.platform.eng.application.client
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-fun DictionaryApiBlock.pronunciationUrl(): String? {
+internal fun DictionaryApiBlock.pronunciationUrl(): String? {
     return luna.resultsData.data.content
         .flatMap { it.entries }
         .mapNotNull { it.pronunciation }
         .firstNotNullOfOrNull { if (!it.audio?.url.isNullOrBlank()) it.audio?.url else null }
 }
 
-fun DictionaryApiBlock.ipa(): String? {
+internal fun DictionaryApiBlock.ipa(): String? {
     return luna.resultsData.data.content
         .flatMap { it.entries }
         .mapNotNull { it.pronunciation }
         .firstNotNullOfOrNull { if (!it.ipa.isNullOrBlank()) it.ipa else null }
 }
 
-fun DictionaryApiBlock.shortDefinition(): List<ShortDefinition> {
+internal fun DictionaryApiBlock.shortDefinition(): List<ShortDefinition> {
     return luna.resultsData.data.content
         .flatMap { it.entries }
         .flatMap { it.posBlocks }
@@ -30,12 +30,12 @@ fun DictionaryApiBlock.shortDefinition(): List<ShortDefinition> {
         }
 }
 
-data class ShortDefinition(
+internal data class ShortDefinition(
     val partOfSpeech: String? = null,
     val definition: String? = null,
 )
 
-data class DictionarySynonymsBlock(
+internal data class DictionarySynonymsBlock(
     val data: DictionarySynonymsData
 ) {
     data class DictionarySynonymsData(
@@ -47,7 +47,7 @@ data class DictionarySynonymsBlock(
     )
 }
 
-data class DictionaryApiBlock(
+internal data class DictionaryApiBlock(
     val luna: DictionaryLuna
 ) {
     data class DictionaryLuna(

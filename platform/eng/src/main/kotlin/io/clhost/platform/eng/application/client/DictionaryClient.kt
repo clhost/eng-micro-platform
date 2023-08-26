@@ -3,7 +3,6 @@ package io.clhost.platform.eng.application.client
 import io.clhost.extension.html.extractTextFromHtml
 import io.clhost.extension.jackson.jsonDecode
 import io.clhost.extension.ktor.client.plugin.label
-import io.clhost.extension.ktor.client.runBlockingWithPreservedCorrelationId
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -27,7 +26,7 @@ class DictionaryClient(
         const val replacementKey = "window.__PRELOADED_STATE__ = "
     }
 
-    fun getDefinitions(word: String) = runBlockingWithPreservedCorrelationId {
+    suspend fun getDefinitions(word: String): List<DictionaryDefinition> {
         val html = getRawHtmlPage(word)
 
         val json = extractTextFromHtml(html, replacementKey)
@@ -40,7 +39,7 @@ class DictionaryClient(
 
         val definitions = block.shortDefinition()
 
-        definitions.map {
+        return definitions.map {
             DictionaryDefinition(
                 definition = extractTextFromHtml(it.definition),
                 ipa = ipa,
@@ -50,14 +49,15 @@ class DictionaryClient(
         }
     }
 
-    fun getSynonyms(word: String) = runBlockingWithPreservedCorrelationId {
+    suspend fun getSynonyms(word: String) =
         client.get("$apiUrl/synonyms/$word") {
             label("getSynonyms")
         }.body<DictionarySynonymsBlock>().data.synonyms.map { it.term }
-    }
 
     private suspend fun getRawHtmlPage(word: String) =
-        client.get("$directUrl/browse/$word") { label("getRawHtmlPage") }.body<String>()
+        client.get("$directUrl/browse/$word") {
+            label("getRawHtmlPage")
+        }.body<String>()
 }
 
 data class DictionaryDefinition(

@@ -108,10 +108,11 @@ data class Translation(
 data class Meaning(
     val source: String,
     val description: String,
-    val partOfSpeech: String
+    val partOfSpeech: String? = null
 )
 
 data class Pronunciation(
+    val source: String,
     val ipa: String,
-    val audioUrl: String
+    val audioUrl: String? = null
 )

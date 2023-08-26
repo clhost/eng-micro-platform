@@ -1,6 +1,7 @@
 package io.clhost.platform.eng.infrastructure
 
 import io.clhost.extension.jackson.jsonDecode
+import io.clhost.extension.jackson.jsonEncode
 import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.platform.eng.domain.WordDefinitionRepository
 import java.sql.ResultSet
@@ -66,12 +67,12 @@ class JdbcWordDefinitionRepository(
                 updated_at
             ) VALUES (
                 :word,
-                :examples::jsonb,
-                :synonyms::jsonb,
-                :translations::jsonb,
-                :meanings::jsonb,
-                :tags::jsonb,
-                :pronunciations::jsonb,
+                :examples::JSONB,
+                :synonyms::JSONB,
+                :translations::JSONB,
+                :meanings::JSONB,
+                :tags::JSONB,
+                :pronunciations::JSONB,
                 :created_at,
                 :updated_at
             )
@@ -79,12 +80,12 @@ class JdbcWordDefinitionRepository(
 
         val params = MapSqlParameterSource()
             .addValue("word", wordDefinition.word)
-            .addValue("examples", wordDefinition.examples)
-            .addValue("synonyms", wordDefinition.synonyms)
-            .addValue("translations", wordDefinition.translations)
-            .addValue("meanings", wordDefinition.meanings)
-            .addValue("tags", wordDefinition.tags)
-            .addValue("pronunciations", wordDefinition.pronunciations)
+            .addValue("examples", jsonEncode(wordDefinition.examples))
+            .addValue("synonyms", jsonEncode(wordDefinition.synonyms))
+            .addValue("translations", jsonEncode(wordDefinition.translations))
+            .addValue("meanings", jsonEncode(wordDefinition.meanings))
+            .addValue("tags", jsonEncode(wordDefinition.tags))
+            .addValue("pronunciations", jsonEncode(wordDefinition.pronunciations))
             .addValue("created_at", wordDefinition.createdAt)
             .addValue("updated_at", wordDefinition.updatedAt)
 
@@ -95,12 +96,12 @@ class JdbcWordDefinitionRepository(
         val sql = """
             UPDATE word_definition
             SET
-                examples = :examples::jsonb,
-                synonyms = :synonyms::jsonb,
-                translations = :translations::jsonb,
-                meanings = :meanings::jsonb,
-                tags = :tags::jsonb,
-                pronunciations = :pronunciations::jsonb,
+                examples = :examples::JSONB,
+                synonyms = :synonyms::JSONB,
+                translations = :translations::JSONB,
+                meanings = :meanings::JSONB,
+                tags = :tags::JSONB,
+                pronunciations = :pronunciations::JSONB,
                 updated_at = :updated_at
             WHERE
                 word = :word
@@ -108,12 +109,12 @@ class JdbcWordDefinitionRepository(
 
         val params = MapSqlParameterSource()
             .addValue("word", wordDefinition.word)
-            .addValue("examples", wordDefinition.examples)
-            .addValue("synonyms", wordDefinition.synonyms)
-            .addValue("translations", wordDefinition.translations)
-            .addValue("meanings", wordDefinition.meanings)
-            .addValue("tags", wordDefinition.tags)
-            .addValue("pronunciations", wordDefinition.pronunciations)
+            .addValue("examples", jsonEncode(wordDefinition.examples))
+            .addValue("synonyms", jsonEncode(wordDefinition.synonyms))
+            .addValue("translations", jsonEncode(wordDefinition.translations))
+            .addValue("meanings", jsonEncode(wordDefinition.meanings))
+            .addValue("tags", jsonEncode(wordDefinition.tags))
+            .addValue("pronunciations", jsonEncode(wordDefinition.pronunciations))
             .addValue("updated_at", wordDefinition.updatedAt)
 
         jdbcTemplate.update(sql, params)
