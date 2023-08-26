@@ -44,7 +44,6 @@ data class UrbanDictionaryDefinitions(
 )
 
 data class UrbanDictionaryDefinition(
-    val author: String,
     val definition: String,
     val example: String,
 
