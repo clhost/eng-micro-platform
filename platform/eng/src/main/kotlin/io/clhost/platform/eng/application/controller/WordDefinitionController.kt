@@ -16,12 +16,12 @@ class WordDefinitionController(
 ) {
 
     @GetMapping("/word/{word}")
-    fun getWordDefinition(@PathVariable word: String): WordDefinition {
+    fun getWord(@PathVariable word: String): WordDefinition {
         return wordDefinitionService.get(word)
     }
 
     @PostMapping("/word/{word}/create")
-    fun createWordDefinition(@PathVariable word: String): WordDefinition {
+    fun createWord(@PathVariable word: String): WordDefinition {
         val command = CreateWordDefinition(word)
         return processors.single { it.isSuitable(command) }.process(command)
     }

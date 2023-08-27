@@ -23,7 +23,7 @@ internal fun DictionaryApiBlock.shortDefinition(): List<ShortDefinition> {
         .flatMap { d ->
             d.definitions.map {
                 ShortDefinition(
-                    partOfSpeech = d.pos,
+                    partOfSpeech = d.pos.replace(",", ""),
                     definition = it.definition?.replace("\\s+".toRegex(), " ")
                 )
             }
