@@ -2,6 +2,7 @@ package io.clhost.platform.eng.application.client
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.clhost.extension.ktor.client.plugin.label
+import io.clhost.platform.eng.application.WithSource
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -52,5 +53,7 @@ data class UrbanDictionaryDefinition(
     val thumbsDown: Int,
 
     @field:JsonProperty("written_on")
-    val writtenOn: OffsetDateTime
-)
+    val writtenOn: OffsetDateTime,
+
+    override val source: String = "urbandictionary.com"
+) : WithSource

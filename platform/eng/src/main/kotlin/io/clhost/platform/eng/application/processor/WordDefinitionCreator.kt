@@ -34,16 +34,11 @@ class WordDefinitionCreator(
         const val urbanDictionaryDefinitionsCount = 3
     }
 
-    // todo: refactoring - should extract Source
-    // todo: examples from dictionary.com
-    // todo: partOfSpeech became nullable because urbandictionary doesn't define it
-    // todo: Pronunciation#audioUrl became nullable
-
     private data class Definitions(
         val dictionaryDefinitions: List<DictionaryDefinition>,
         val dictionarySynonyms: List<String>,
         val urbanDictionaryDefinitions: List<UrbanDictionaryDefinition>,
-        val yandexTranslation: Pair<String, String?>
+        val yandexTranslation: Pair<String?, String?>
     )
 
     override fun isSuitable(command: WordDefinitionCommand) = command is CreateWordDefinition
@@ -74,7 +69,7 @@ class WordDefinitionCreator(
                 dictionaryDefinitions = result.getOrThrow(),
                 dictionarySynonyms = dictionarySynonyms.await(),
                 urbanDictionaryDefinitions = urbanDictionaryDefinitions.await(),
-                yandexTranslation = "yandex" to yandexTranslation.await()
+                yandexTranslation = with(yandexTranslation.await()) { this?.source to this?.text }
             )
         }
 
@@ -88,11 +83,11 @@ class WordDefinitionCreator(
 
     private fun WordDefinition.appendDictionaryDefinitions(definitions: List<DictionaryDefinition>) {
         val meanings = definitions.mapNotNull {
-            it.definition?.let { definition -> Meaning("dictionary.com", definition, it.partOfSpeech) }
+            it.definition?.let { definition -> Meaning(it.source, definition, it.partOfSpeech) }
         }
 
         val pronunciations = definitions.mapNotNull {
-            it.ipa?.let { ipa -> Pronunciation("dictionary.com", ipa, it.pronunciationUrl) }
+            it.ipa?.let { ipa -> Pronunciation(it.source, ipa, it.pronunciationUrl) }
         }
 
         wordDefinitionService.appendMeanings(this, meanings)
@@ -104,8 +99,8 @@ class WordDefinitionCreator(
             .sortedByDescending { it.thumbsUp - it.thumbsDown }
             .take(urbanDictionaryDefinitionsCount)
 
-        val examples = topDefinitions.map { Example("urbandictionary.com", it.example) }
-        val meanings = topDefinitions.map { Meaning("urbandictionary.com", it.definition) }
+        val examples = topDefinitions.map { Example(it.source, it.example) }
+        val meanings = topDefinitions.map { Meaning(it.source, it.definition) }
 
         wordDefinitionService.appendExamples(this, examples)
         wordDefinitionService.appendMeanings(this, meanings)
@@ -115,8 +110,8 @@ class WordDefinitionCreator(
         wordDefinitionService.appendSynonyms(this, synonyms)
     }
 
-    private fun WordDefinition.appendYandexTranslation(translationWithSource: Pair<String, String?>) {
-        val source = translationWithSource.first
+    private fun WordDefinition.appendYandexTranslation(translationWithSource: Pair<String?, String?>) {
+        val source = translationWithSource.first ?: return
         val translation = translationWithSource.second ?: return
         wordDefinitionService.appendTranslations(this, listOf(Translation(source, translation, "ru")))
     }

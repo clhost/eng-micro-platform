@@ -11,3 +11,8 @@ class Application
 fun main(args: Array<String>) {
     runApplication<Application>(*args)
 }
+
+// todo: refactoring - should extract Source
+// todo: examples from dictionary.com
+// todo: partOfSpeech became nullable because urbandictionary doesn't define it
+// todo: Pronunciation#audioUrl became nullable

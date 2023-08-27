@@ -3,6 +3,7 @@ package io.clhost.platform.eng.application.client
 import io.clhost.extension.html.extractTextFromHtml
 import io.clhost.extension.jackson.jsonDecode
 import io.clhost.extension.ktor.client.plugin.label
+import io.clhost.platform.eng.application.WithSource
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -64,5 +65,6 @@ data class DictionaryDefinition(
     val definition: String? = null,
     val ipa: String? = null,
     val partOfSpeech: String? = null,
-    val pronunciationUrl: String? = null
-)
+    val pronunciationUrl: String? = null,
+    override val source: String = "dictionary.com"
+) : WithSource
