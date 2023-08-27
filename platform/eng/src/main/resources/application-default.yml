@@ -15,6 +15,15 @@ spring:
     url: jdbc:postgresql://localhost:5432/${spring.application.name}
     username: postgres
     password: pwd
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      lettuce:
+        pool:
+          min-idle: 5
+          max-idle: 10
+          max-active: 10
   kafka:
     bootstrap-servers: localhost:9092
     listener:
@@ -35,7 +44,8 @@ client:
   dictionary:
     direct-url: https://www.dictionary.com
     api-url: https://api-portal.dictionary.com/dcom
-  yandex-cloud-translate:
-    url: https://translate.api.cloud.yandex.net/translate/v2/translate
+  yandex-cloud:
+    translate-url: https://translate.api.cloud.yandex.net/translate/v2/translate
+    tokens-url: https://iam.api.cloud.yandex.net/iam/v1/tokens
     folder-id: b1gigl5qq3r2gsne83s2
-    iam-token: t1.9euelZqKyYmeyJjNzIvLi5Kei83Onu3rnpWakImUzs3LnJ6akZiejMrIzpTl8_dhf1VY-e90ZTgs_t3z9yEuU1j573RlOCz-zef1656VmouSipucmZiPiZudzJKax42e7_zF656VmouSipucmZiPiZudzJKax42e.q9adCqsaC68J7ndKYCZgdlI1JDUt4E44mKhwRtP4iFSWGW4scPxr8RMaGXZyGH6vpO9qp_jCwOFNJFy7BM9EBQ
+    oauth-token: y0_AgAAAAAhjwaxAATuwQAAAADrD-hTFbWXhI6KTXOr19pOwD1-84EMkUo

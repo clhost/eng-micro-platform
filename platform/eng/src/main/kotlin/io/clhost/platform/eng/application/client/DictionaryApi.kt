@@ -24,7 +24,7 @@ internal fun DictionaryApiBlock.shortDefinition(): List<ShortDefinition> {
             d.definitions.map {
                 ShortDefinition(
                     partOfSpeech = d.pos,
-                    definition = it.definition.replace("\\s+".toRegex(), " ")
+                    definition = it.definition?.replace("\\s+".toRegex(), " ")
                 )
             }
         }
@@ -32,7 +32,7 @@ internal fun DictionaryApiBlock.shortDefinition(): List<ShortDefinition> {
 
 internal data class ShortDefinition(
     val partOfSpeech: String? = null,
-    val definition: String? = null,
+    val definition: String? = null
 )
 
 internal data class DictionarySynonymsBlock(
@@ -89,6 +89,6 @@ internal data class DictionaryApiBlock(
     )
 
     data class DictionaryPosBlockDefinition(
-        val definition: String
+        val definition: String? = null
     )
 }

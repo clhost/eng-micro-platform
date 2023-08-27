@@ -46,15 +46,12 @@ class ClientsConfiguration(
     }
 
     @Bean
-    fun yandexCloudTranslateKtorClient(
-        @Value("\${client.yandex-cloud-translate.url}")
-        url: String
-    ) = createKtorClient {
+    fun yandexCloudKtorClient() = createKtorClient {
         useLogging(logBody = false)
         useCorrelationId()
         useTimeouts(10000, 10000, 10000)
         usePoolConnections(20, 20)
         useJson(standardObjectMapper)
-        useMeasurement(URI(url).host, meterRegistry)
+        useMeasurement("cloud.yandex", meterRegistry)
     }
 }

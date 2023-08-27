@@ -16,9 +16,11 @@ import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.platform.eng.domain.WordDefinitionService
 import kotlinx.coroutines.async
 import org.springframework.stereotype.Component
+import org.springframework.transaction.support.TransactionTemplate
 
 @Component
 class WordDefinitionCreator(
+    private val transactionTemplate: TransactionTemplate,
     private val wordDefinitionService: WordDefinitionService,
     private val dictionaryClient: DictionaryClient,
     private val urbanDictionaryClient: UrbanDictionaryClient,
@@ -34,6 +36,7 @@ class WordDefinitionCreator(
     // todo: partOfSpeech became nullable because urbandictionary doesn't define it
     // todo: Pronunciation#audioUrl became nullable
     // todo: yandex IAM token can be expired FUCK
+    // todo: English word existence API?
 
     private data class Definitions(
         val dictionaryDefinitions: List<DictionaryDefinition>,
@@ -44,7 +47,7 @@ class WordDefinitionCreator(
 
     override fun isSuitable(command: WordDefinitionCommand) = command is CreateWordDefinition
 
-    override fun process(command: WordDefinitionCommand): WordDefinition {
+    override fun process(command: WordDefinitionCommand): WordDefinition = transactionTemplate.execute {
         command as CreateWordDefinition
 
         val word = command.word
@@ -63,13 +66,13 @@ class WordDefinitionCreator(
             )
         }
 
-        return wordDefinition.apply {
+        return@execute wordDefinition.apply {
             appendDictionarySynonyms(definitions.dictionarySynonyms)
             appendYandexTranslation(definitions.yandexTranslation)
             appendDictionaryDefinitions(definitions.dictionaryDefinitions)
             appendUrbanDictionaryDefinitions(definitions.urbanDictionaryDefinitions)
         }
-    }
+    }!!
 
     private fun WordDefinition.appendDictionaryDefinitions(definitions: List<DictionaryDefinition>) {
         val meanings = definitions.mapNotNull {

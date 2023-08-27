@@ -15,6 +15,15 @@ spring:
     url: jdbc:postgresql://localhost:5432/${spring.application.name}
     username: postgres
     password: pwd
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      lettuce:
+        pool:
+          min-idle: 5
+          max-idle: 10
+          max-active: 10
   kafka:
     bootstrap-servers: localhost:9092
     listener:
@@ -39,6 +48,7 @@ client:
     direct-url: http://localhost:${wiremock.server.port}
     api-url: http://localhost:${wiremock.server.port}
   yandex-cloud-translate:
-    url: http://localhost:${wiremock.server.port}
+    translate-url: http://localhost:${wiremock.server.port}
+    tokens-url: http://localhost:${wiremock.server.port}
     folder-id: folder-id
-    iam-token: iam-token
+    oauth-token: oauth-token

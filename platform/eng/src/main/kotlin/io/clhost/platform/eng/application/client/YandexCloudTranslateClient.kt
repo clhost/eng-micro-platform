@@ -2,6 +2,7 @@ package io.clhost.platform.eng.application.client
 
 import io.clhost.extension.ktor.client.applicationJson
 import io.clhost.extension.ktor.client.plugin.label
+import io.clhost.platform.eng.application.yandex.YandexIAMTokenProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.bearerAuth
@@ -13,20 +14,20 @@ import org.springframework.stereotype.Component
 
 @Component
 class YandexCloudTranslateClient(
-    @Value("\${client.yandex-cloud-translate.url}")
+    @Value("\${client.yandex-cloud.translate-url}")
     private val url: String,
 
-    @Value("\${client.yandex-cloud-translate.folder-id}")
+    @Value("\${client.yandex-cloud.folder-id}")
     private val folderId: String,
 
-    @Value("\${client.yandex-cloud-translate.iam-token}")
-    private val iamToken: String,
+    @Qualifier("yandexCloudKtorClient")
+    private val client: HttpClient,
 
-    @Qualifier("yandexCloudTranslateKtorClient")
-    private val client: HttpClient
+    private val yandexIAMTokenProvider: YandexIAMTokenProvider
 ) {
 
     suspend fun translateEnToRu(word: String): String? {
+        val iamToken = yandexIAMTokenProvider.getIAMToken()
         val request = TranslationRequest(
             folderId = folderId,
             texts = listOf(word),
