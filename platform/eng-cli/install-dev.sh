@@ -75,7 +75,7 @@ echo ""
 
 echo -e "\nPrime the config file..."
 touch "$eng_config_file"
-echo "$eng_default_config" >> "$eng_config_file"
+echo "$eng_default_config" > "$eng_config_file"
 
 echo -e "\nGenerate completion scripts..."
 

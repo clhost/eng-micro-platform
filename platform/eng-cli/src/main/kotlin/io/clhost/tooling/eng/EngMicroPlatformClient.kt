@@ -14,8 +14,7 @@ val engMicroPlatformClient = EngMicroPlatformClient()
 
 class EngMicroPlatformClient {
 
-    // private val engMicroPlatformUrl: String by lazy { config.engMicroPlatformUrl }
-    private val engMicroPlatformUrl = "http://localhost:11111"
+    private val engMicroPlatformUrl: String by lazy { config.engMicroPlatformUrl }
 
     fun getWord(word: String) = httpClient.getAsync<WordDefinition>() {
         url("$engMicroPlatformUrl/word/$word")
