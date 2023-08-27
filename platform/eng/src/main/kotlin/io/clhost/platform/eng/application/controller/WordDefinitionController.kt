@@ -15,7 +15,7 @@ class WordDefinitionController(
     private val wordDefinitionService: WordDefinitionService
 ) {
 
-    @GetMapping("/wordDefinition/{word}")
+    @GetMapping("/word/{word}")
     fun getWordDefinition(@PathVariable word: String): WordDefinition {
         return wordDefinitionService.get(word)
     }

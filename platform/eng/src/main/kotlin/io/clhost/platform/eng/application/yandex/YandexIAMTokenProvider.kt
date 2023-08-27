@@ -38,8 +38,13 @@ class YandexIAMTokenProvider(
         const val iamTokenKey = "iam_token"
     }
 
-    fun getIAMToken() = redisTemplate.opsForValue().get(iamTokenKey)
-        ?: throw Exception("IAM token not found in Redis")
+    data class IAMToken(val iamToken: String, val expiredAt: OffsetDateTime)
+
+    fun getIAMToken(): IAMToken {
+        val iamToken = redisTemplate.opsForValue().get(iamTokenKey)
+            ?: throw Exception("IAM token not found in Redis")
+        return jsonDecode<IAMToken>(iamToken)
+    }
 
     @Scheduled(initialDelay = 1_000, fixedDelay = 60_000_000)
     fun refreshToken() {
@@ -51,7 +56,7 @@ class YandexIAMTokenProvider(
             return
         }
 
-        val iamToken = jsonDecode<IAMToken>(result.getOrThrow())
+        val iamToken = result.getOrThrow()
 
         if (OffsetDateTime.now() > iamToken.expiredAt) {
             redisTemplate.opsForValue()[iamTokenKey] = jsonEncode(getNewIAMToken().toIAMToken())
@@ -70,7 +75,6 @@ class YandexIAMTokenProvider(
         }.body<IAMTokenResponse>()
     }
 
-    private data class IAMToken(val iamToken: String, val expiredAt: OffsetDateTime)
     private data class IAMTokenResponse(val iamToken: String, val expiresAt: OffsetDateTime)
     private data class Exchange(val yandexPassportOauthToken: String)
 

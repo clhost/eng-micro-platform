@@ -1,6 +1,7 @@
 package io.clhost.platform.eng.application.processor
 
 import io.clhost.extension.ktor.client.runBlockingWithPreservedCorrelationId
+import io.clhost.extension.stdlib.withResult
 import io.clhost.platform.eng.application.client.DictionaryClient
 import io.clhost.platform.eng.application.client.DictionaryDefinition
 import io.clhost.platform.eng.application.client.UrbanDictionaryClient
@@ -14,6 +15,8 @@ import io.clhost.platform.eng.domain.Pronunciation
 import io.clhost.platform.eng.domain.Translation
 import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.platform.eng.domain.WordDefinitionService
+import io.ktor.client.plugins.ClientRequestException
+import io.ktor.http.HttpStatusCode.Companion.NotFound
 import kotlinx.coroutines.async
 import org.springframework.stereotype.Component
 import org.springframework.transaction.support.TransactionTemplate
@@ -35,8 +38,6 @@ class WordDefinitionCreator(
     // todo: examples from dictionary.com
     // todo: partOfSpeech became nullable because urbandictionary doesn't define it
     // todo: Pronunciation#audioUrl became nullable
-    // todo: yandex IAM token can be expired FUCK
-    // todo: English word existence API?
 
     private data class Definitions(
         val dictionaryDefinitions: List<DictionaryDefinition>,
@@ -51,15 +52,26 @@ class WordDefinitionCreator(
         command as CreateWordDefinition
 
         val word = command.word
+
+        withResult { wordDefinitionService.get(word) }.onSuccess { return@execute it }
+
         val wordDefinition = wordDefinitionService.create(word)
 
         val definitions = runBlockingWithPreservedCorrelationId {
-            val dictionaryDefinitions = async { dictionaryClient.getDefinitions(word) }
+            val result = withResult { dictionaryClient.getDefinitions(word) }
+
+            result.onFailure {
+                if (it is ClientRequestException && it.response.status == NotFound) {
+                    throw IllegalStateException("Word $word is not existed!")
+                }
+            }
+
             val dictionarySynonyms = async { dictionaryClient.getSynonyms(word) }
             val urbanDictionaryDefinitions = async { urbanDictionaryClient.getDefinitions(word) }
             val yandexTranslation = async { yandexCloudTranslateClient.translateEnToRu(word) }
+
             Definitions(
-                dictionaryDefinitions = dictionaryDefinitions.await(),
+                dictionaryDefinitions = result.getOrThrow(),
                 dictionarySynonyms = dictionarySynonyms.await(),
                 urbanDictionaryDefinitions = urbanDictionaryDefinitions.await(),
                 yandexTranslation = "yandex" to yandexTranslation.await()

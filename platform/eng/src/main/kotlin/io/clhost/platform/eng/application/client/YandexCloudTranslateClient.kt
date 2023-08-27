@@ -27,7 +27,7 @@ class YandexCloudTranslateClient(
 ) {
 
     suspend fun translateEnToRu(word: String): String? {
-        val iamToken = yandexIAMTokenProvider.getIAMToken()
+        val iamToken = yandexIAMTokenProvider.getIAMToken().iamToken
         val request = TranslationRequest(
             folderId = folderId,
             texts = listOf(word),
