@@ -2,17 +2,16 @@ package io.clhost.platform.eng.application.processor
 
 import io.clhost.extension.ktor.client.runBlockingWithPreservedCorrelationId
 import io.clhost.extension.stdlib.withResult
+import io.clhost.language.eng.CreateWordDefinitionCommand
+import io.clhost.language.eng.Meaning
+import io.clhost.language.eng.Pronunciation
+import io.clhost.language.eng.Translation
+import io.clhost.language.eng.WordDefinitionCommand
 import io.clhost.platform.eng.application.client.DictionaryClient
 import io.clhost.platform.eng.application.client.DictionaryDefinition
 import io.clhost.platform.eng.application.client.UrbanDictionaryClient
 import io.clhost.platform.eng.application.client.UrbanDictionaryDefinition
 import io.clhost.platform.eng.application.client.YandexCloudTranslateClient
-import io.clhost.platform.eng.application.commands.CreateWordDefinition
-import io.clhost.platform.eng.application.commands.WordDefinitionCommand
-import io.clhost.platform.eng.domain.Example
-import io.clhost.platform.eng.domain.Meaning
-import io.clhost.platform.eng.domain.Pronunciation
-import io.clhost.platform.eng.domain.Translation
 import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.platform.eng.domain.WordDefinitionService
 import io.ktor.client.plugins.ClientRequestException
@@ -41,10 +40,12 @@ class WordDefinitionCreator(
         val yandexTranslation: Pair<String?, String?>
     )
 
-    override fun isSuitable(command: WordDefinitionCommand) = command is CreateWordDefinition
+    override fun isSuitable(command: WordDefinitionCommand) = command is CreateWordDefinitionCommand
+
+    // todo: create in here a call to another module
 
     override fun process(command: WordDefinitionCommand): WordDefinition = transactionTemplate.execute {
-        command as CreateWordDefinition
+        command as CreateWordDefinitionCommand
 
         val word = command.word
 
@@ -99,10 +100,8 @@ class WordDefinitionCreator(
             .sortedByDescending { it.thumbsUp - it.thumbsDown }
             .take(urbanDictionaryDefinitionsCount)
 
-        val examples = topDefinitions.map { Example(it.source, it.example) }
-        val meanings = topDefinitions.map { Meaning(it.source, it.definition) }
+        val meanings = topDefinitions.map { Meaning(it.source, it.definition, example = it.example) }
 
-        wordDefinitionService.appendExamples(this, examples)
         wordDefinitionService.appendMeanings(this, meanings)
     }
 

@@ -1,8 +1,9 @@
 package io.clhost.tooling.eng
 
+import io.clhost.language.eng.WordDefinitionDto
 import io.clhost.tooling.extensions.lightCyan
 
-fun printWordDefinition(wordDefinition: WordDefinition) {
+fun printWordDefinition(wordDefinition: WordDefinitionDto) {
     println("${"Word: ".lightCyan} ${wordDefinition.word}")
 
     println("Translations:".lightCyan)
@@ -24,12 +25,7 @@ fun printWordDefinition(wordDefinition: WordDefinition) {
         println("    - ${"Part of speech:".lightCyan} ${it.partOfSpeech}")
         println("      ${"Source:".lightCyan} ${it.source}")
         println("      ${"Description:".lightCyan} ${it.description.replace("([\r\n])+".toRegex(), "; ")}")
-    }
-
-    println("Examples:".lightCyan)
-    wordDefinition.examples.forEach {
-        println("    - ${"Source:".lightCyan} ${it.source}")
-        println("      ${"Definition:".lightCyan} ${it.definition.replace("([\r\n])+".toRegex(), "; ")}")
+        println("      ${"Example:".lightCyan} ${it.example?.replace("([\r\n])+".toRegex(), "; ")}")
     }
 
     println("${"Tags:".lightCyan} ${wordDefinition.tags}")

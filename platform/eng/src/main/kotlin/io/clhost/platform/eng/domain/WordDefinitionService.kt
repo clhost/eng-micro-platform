@@ -1,5 +1,8 @@
 package io.clhost.platform.eng.domain
 
+import io.clhost.language.eng.Meaning
+import io.clhost.language.eng.Pronunciation
+import io.clhost.language.eng.Translation
 import org.springframework.stereotype.Component
 
 @Component
@@ -15,12 +18,6 @@ class WordDefinitionService(
         }
         return wordDefinition.apply { wordDefinitionRepository.create(this) }
     }
-
-    fun appendExamples(wordDefinition: WordDefinition, examples: List<Example>) =
-        wordDefinition.apply {
-            wordDefinition.appendExamples(examples)
-            wordDefinitionRepository.update(this)
-        }
 
     fun appendMeanings(wordDefinition: WordDefinition, meanings: List<Meaning>) =
         wordDefinition.apply {

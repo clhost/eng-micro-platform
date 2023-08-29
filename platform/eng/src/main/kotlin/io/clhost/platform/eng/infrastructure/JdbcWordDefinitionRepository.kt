@@ -20,7 +20,6 @@ class JdbcWordDefinitionRepository(
             word = rs.getString("word"),
             createdAt = rs.getObject("created_at", OffsetDateTime::class.java),
             updatedAt = rs.getObject("updated_at", OffsetDateTime::class.java),
-            examples = jsonDecode(rs.getString("examples")),
             meanings = jsonDecode(rs.getString("meanings")),
             translations = jsonDecode(rs.getString("translations")),
             pronunciations = jsonDecode(rs.getString("pronunciations")),
@@ -33,7 +32,6 @@ class JdbcWordDefinitionRepository(
         val sql = """
             SELECT
                 word,
-                examples,
                 synonyms,
                 translations,
                 meanings,
@@ -57,7 +55,6 @@ class JdbcWordDefinitionRepository(
         val sql = """
             INSERT INTO word_definition (
                 word,
-                examples,
                 synonyms,
                 translations,
                 meanings,
@@ -67,7 +64,6 @@ class JdbcWordDefinitionRepository(
                 updated_at
             ) VALUES (
                 :word,
-                :examples::JSONB,
                 :synonyms::JSONB,
                 :translations::JSONB,
                 :meanings::JSONB,
@@ -80,7 +76,6 @@ class JdbcWordDefinitionRepository(
 
         val params = MapSqlParameterSource()
             .addValue("word", wordDefinition.word)
-            .addValue("examples", jsonEncode(wordDefinition.examples))
             .addValue("synonyms", jsonEncode(wordDefinition.synonyms))
             .addValue("translations", jsonEncode(wordDefinition.translations))
             .addValue("meanings", jsonEncode(wordDefinition.meanings))
@@ -96,7 +91,6 @@ class JdbcWordDefinitionRepository(
         val sql = """
             UPDATE word_definition
             SET
-                examples = :examples::JSONB,
                 synonyms = :synonyms::JSONB,
                 translations = :translations::JSONB,
                 meanings = :meanings::JSONB,
@@ -109,7 +103,6 @@ class JdbcWordDefinitionRepository(
 
         val params = MapSqlParameterSource()
             .addValue("word", wordDefinition.word)
-            .addValue("examples", jsonEncode(wordDefinition.examples))
             .addValue("synonyms", jsonEncode(wordDefinition.synonyms))
             .addValue("translations", jsonEncode(wordDefinition.translations))
             .addValue("meanings", jsonEncode(wordDefinition.meanings))

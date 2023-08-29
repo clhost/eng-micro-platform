@@ -1,5 +1,11 @@
 # thoughts
 
+## updates
+
+1. Should create PhraseDefinition and define fields
+2. I think about to extract as a separate module all interactions - and remain domain eng module not dependent to remote
+   services like yandex, dictionary and etc
+
 ## eng
 
 The component ```eng``` is the core of my own platform, it should consist domain logic.

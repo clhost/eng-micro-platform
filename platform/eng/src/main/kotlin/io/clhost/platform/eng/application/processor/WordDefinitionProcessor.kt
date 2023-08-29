@@ -1,6 +1,6 @@
 package io.clhost.platform.eng.application.processor
 
-import io.clhost.platform.eng.application.commands.WordDefinitionCommand
+import io.clhost.language.eng.WordDefinitionCommand
 import io.clhost.platform.eng.domain.WordDefinition
 
 interface WordDefinitionProcessor {

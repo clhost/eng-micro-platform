@@ -44,6 +44,7 @@ dependencyManagement {
 dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
+    implementation(project(":eng-language"))
     implementation(project(":faults-language"))
     implementation(project(":html-extensions"))
     implementation(project(":jackson-extensions"))

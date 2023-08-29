@@ -1,6 +1,5 @@
 CREATE TABLE word_definition (
     word           TEXT        NOT NULL,
-    examples       JSONB       NULL,
     synonyms       JSONB       NULL,
     translations   JSONB       NULL,
     meanings       JSONB       NULL,

@@ -1,6 +1,6 @@
 package io.clhost.platform.eng.application.controller
 
-import io.clhost.platform.eng.application.commands.CreateWordDefinition
+import io.clhost.language.eng.CreateWordDefinitionCommand
 import io.clhost.platform.eng.application.processor.WordDefinitionProcessor
 import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.platform.eng.domain.WordDefinitionService
@@ -22,7 +22,7 @@ class WordDefinitionController(
 
     @PostMapping("/word/{word}/create")
     fun createWord(@PathVariable word: String): WordDefinition {
-        val command = CreateWordDefinition(word)
+        val command = CreateWordDefinitionCommand(word)
         return processors.single { it.isSuitable(command) }.process(command)
     }
 }

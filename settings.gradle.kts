@@ -37,5 +37,8 @@ project(":faults-language").projectDir = File("libraries/faults-language")
 include(":eng")
 project(":eng").projectDir = File("platform/eng")
 
+include(":eng-language")
+project(":eng-language").projectDir = File("platform/eng-language")
+
 include(":eng-cli")
 project(":eng-cli").projectDir = File("platform/eng-cli")

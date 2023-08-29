@@ -12,15 +12,16 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":eng-language"))
+
     implementation("com.github.ajalt.clikt:clikt:3.5.2")
     implementation("com.github.tomas-langer:chalk:1.0.2")
+    implementation("com.charleskorn.kaml:kaml:0.53.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-
-    implementation("com.charleskorn.kaml:kaml:0.53.0")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
