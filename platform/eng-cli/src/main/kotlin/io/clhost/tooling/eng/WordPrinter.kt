@@ -8,7 +8,7 @@ fun printWordDefinition(wordDefinition: WordDefinitionDto) {
 
     println("Translations:".lightCyan)
     wordDefinition.translations.forEach {
-        println("    - ${"Translation:".lightCyan} ${it.word}")
+        println("    - ${"Translation:".lightCyan} ${it.definition}")
         println("      ${"Source:".lightCyan} ${it.source}")
         println("      ${"Language:".lightCyan} ${it.language}")
     }

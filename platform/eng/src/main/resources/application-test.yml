@@ -47,6 +47,9 @@ client:
   dictionary:
     direct-url: http://localhost:${wiremock.server.port}
     api-url: http://localhost:${wiremock.server.port}
+  merriam-webster:
+    url: http://localhost:${wiremock.server.port}
+    api-key: api-key
   yandex-cloud-translate:
     translate-url: http://localhost:${wiremock.server.port}
     tokens-url: http://localhost:${wiremock.server.port}

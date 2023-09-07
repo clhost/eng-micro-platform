@@ -1,9 +1,9 @@
 package io.clhost.platform.eng.application.processor
 
 import io.clhost.language.eng.DefinitionCommand
-import io.clhost.platform.eng.domain.WordDefinition
+import io.clhost.platform.eng.domain.PhraseDefinition
 
-interface WordDefinitionProcessor {
-    fun process(command: DefinitionCommand): WordDefinition
+interface PhraseDefinitionProcessor {
+    fun process(command: DefinitionCommand): PhraseDefinition
     fun isSuitable(command: DefinitionCommand): Boolean
 }

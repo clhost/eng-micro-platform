@@ -44,6 +44,9 @@ client:
   dictionary:
     direct-url: https://www.dictionary.com
     api-url: https://api-portal.dictionary.com/dcom
+  merriam-webster:
+    url: https://dictionaryapi.com/api/v3/references/collegiate/json
+    api-key: ac36ee48-6041-49ab-9dab-4f03ee682b25
   yandex-cloud:
     translate-url: https://translate.api.cloud.yandex.net/translate/v2/translate
     tokens-url: https://iam.api.cloud.yandex.net/iam/v1/tokens

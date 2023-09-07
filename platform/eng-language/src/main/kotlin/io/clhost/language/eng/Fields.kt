@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Translation(
     val source: String,
-    val word: String,
+    val definition: String,
     val language: String
 )
 

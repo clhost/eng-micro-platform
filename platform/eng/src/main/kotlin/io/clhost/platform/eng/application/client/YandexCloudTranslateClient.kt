@@ -2,7 +2,6 @@ package io.clhost.platform.eng.application.client
 
 import io.clhost.extension.ktor.client.applicationJson
 import io.clhost.extension.ktor.client.plugin.label
-import io.clhost.platform.eng.application.WithSource
 import io.clhost.platform.eng.application.yandex.YandexIAMTokenProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -27,7 +26,7 @@ class YandexCloudTranslateClient(
     private val yandexIAMTokenProvider: YandexIAMTokenProvider
 ) {
 
-    suspend fun translateEnToRu(word: String): Translation? {
+    suspend fun translateEnToRu(word: String): YandexTranslation? {
         val iamToken = yandexIAMTokenProvider.getIAMToken().iamToken
         val request = TranslationRequest(
             folderId = folderId,
@@ -52,10 +51,5 @@ data class TranslationRequest(
 )
 
 data class TranslationResponse(
-    val translations: List<Translation>
+    val translations: List<YandexTranslation>
 )
-
-data class Translation(
-    val text: String,
-    override val source: String = "yandex.cloud"
-) : WithSource

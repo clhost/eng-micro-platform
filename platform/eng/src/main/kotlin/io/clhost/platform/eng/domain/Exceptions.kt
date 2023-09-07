@@ -9,6 +9,13 @@ class WordDefinitionNotFound(
     "Word definition not found (word=$word)"
 )
 
+class PhraseDefinitionNotFound(
+    phrase: String
+) : BusinessLogicException(
+    "phraseDefinitionNotFound",
+    "Phrase definition not found (phrase=$phrase)"
+)
+
 class WordViolatedInvariant(
     word: String,
     message: String
@@ -18,5 +25,17 @@ class WordViolatedInvariant(
 ) {
     companion object {
         fun shouldBeWord(word: String) = WordViolatedInvariant(word, "Should be word")
+    }
+}
+
+class PhraseViolatedInvariant(
+    phrase: String,
+    message: String
+) : BusinessLogicException(
+    "phraseViolatedInvariant",
+    "Phrase invariant is violated (phrase=$phrase, message=$message)"
+) {
+    companion object {
+        fun shouldBePhrase(phrase: String) = PhraseViolatedInvariant(phrase, "Should be phrase")
     }
 }

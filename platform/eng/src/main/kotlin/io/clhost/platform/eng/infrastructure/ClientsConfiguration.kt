@@ -54,4 +54,14 @@ class ClientsConfiguration(
         useJson(standardObjectMapper)
         useMeasurement("cloud.yandex", meterRegistry)
     }
+
+    @Bean
+    fun merriamWebsterKtorClient() = createKtorClient {
+        useLogging()
+        useCorrelationId()
+        useTimeouts(10000, 10000, 10000)
+        usePoolConnections(20, 20)
+        useJson(standardObjectMapper)
+        useMeasurement("merriam.webster", meterRegistry)
+    }
 }

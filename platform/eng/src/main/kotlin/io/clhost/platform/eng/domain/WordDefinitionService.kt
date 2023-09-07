@@ -21,31 +21,31 @@ class WordDefinitionService(
 
     fun appendMeanings(wordDefinition: WordDefinition, meanings: List<Meaning>) =
         wordDefinition.apply {
-            wordDefinition.appendMeanings(meanings)
+            appendMeanings(meanings)
             wordDefinitionRepository.update(this)
         }
 
     fun appendTranslations(wordDefinition: WordDefinition, translations: List<Translation>) =
         wordDefinition.apply {
-            wordDefinition.appendTranslations(translations)
+            appendTranslations(translations)
             wordDefinitionRepository.update(this)
         }
 
     fun appendPronunciations(wordDefinition: WordDefinition, pronunciations: List<Pronunciation>) =
         wordDefinition.apply {
-            wordDefinition.appendPronunciations(pronunciations)
+            appendPronunciations(pronunciations)
             wordDefinitionRepository.update(this)
         }
 
     fun appendTags(wordDefinition: WordDefinition, tags: List<String>) =
         wordDefinition.apply {
-            wordDefinition.appendTags(tags)
+            appendTags(tags)
             wordDefinitionRepository.update(this)
         }
 
     fun appendSynonyms(wordDefinition: WordDefinition, synonyms: List<String>) =
         wordDefinition.apply {
-            wordDefinition.appendSynonyms(synonyms)
+            appendSynonyms(synonyms)
             wordDefinitionRepository.update(this)
         }
 }

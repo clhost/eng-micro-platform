@@ -11,3 +11,6 @@ class Application
 fun main(args: Array<String>) {
     runApplication<Application>(*args)
 }
+
+// todo: registration and identification
+// todo: determination of part of speech (idiom, phrasal verb etc)
