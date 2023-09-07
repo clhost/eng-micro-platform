@@ -12,6 +12,8 @@ class WordDefinitionService(
 
     fun get(word: String) = wordDefinitionRepository.get(word) ?: throw WordDefinitionNotFound(word)
 
+    fun delete(word: String) = wordDefinitionRepository.delete(word)
+
     fun create(word: String): WordDefinition {
         val wordDefinition = WordDefinition(word).apply {
             initialize()

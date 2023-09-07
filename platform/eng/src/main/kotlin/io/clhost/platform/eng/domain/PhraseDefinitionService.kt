@@ -11,6 +11,8 @@ class PhraseDefinitionService(
 
     fun get(phrase: String) = phraseDefinitionRepository.get(phrase) ?: throw PhraseDefinitionNotFound(phrase)
 
+    fun delete(phrase: String) = phraseDefinitionRepository.delete(phrase)
+
     fun create(phrase: String): PhraseDefinition {
         val phraseDefinition = PhraseDefinition(phrase).apply {
             initialize()

@@ -4,7 +4,7 @@ import java.io.File
 import java.net.URLEncoder
 
 val String.encoded: String
-    get() = URLEncoder.encode(this, "utf-8")
+    get() = URLEncoder.encode(this, "utf-8").replace("+", "%20")
 
 fun String.ifNotEmpty(block: (String) -> Unit) {
     if (isNotEmpty()) {

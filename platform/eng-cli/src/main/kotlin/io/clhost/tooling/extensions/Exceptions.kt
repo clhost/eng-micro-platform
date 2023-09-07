@@ -9,7 +9,11 @@ class OptionMustBePresent(
 
 class OneOfTheOptionsMustBePresent(
     options: Set<String>
-) : RuntimeException("Error: one of the options $options requires a value")
+) : RuntimeException("Error: one of the options $options must be present")
+
+class OnlyOneOfTheOptionsMustBePresent(
+    options: Set<String>
+) : RuntimeException("Error: only one of the options $options must be present")
 
 fun handleException(block: () -> Unit) = try {
     block()

@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import io.clhost.language.eng.CreateWordDefinitionCommand
 import io.clhost.language.eng.Meaning
+import io.clhost.language.eng.PhraseDefinitionDto
 import io.clhost.language.eng.Pronunciation
 import io.clhost.language.eng.Translation
 import io.clhost.language.eng.WordDefinitionDto
@@ -27,8 +28,9 @@ class Eng : CliktCommand(printHelpOnEmptyArgs = true) {
         completionOption(hidden = true)
         versionOption(File(ENG_VERSION_FILE).read().replace("\n", ""))
         subcommands(
-            CreateWordCommand(),
-            GetWordCommand()
+            CreateCommand(),
+            GetCommand(),
+            DeleteCommand()
         )
     }
 
@@ -41,6 +43,7 @@ fun main(args: Array<String>) = handleException {
             contextual(EngConfig::class, EngConfig.serializer())
             contextual(CreateWordDefinitionCommand::class, CreateWordDefinitionCommand.serializer())
             contextual(WordDefinitionDto::class, WordDefinitionDto.serializer())
+            contextual(PhraseDefinitionDto::class, PhraseDefinitionDto.serializer())
             contextual(Translation::class, Translation.serializer())
             contextual(Meaning::class, Meaning.serializer())
             contextual(Pronunciation::class, Pronunciation.serializer())

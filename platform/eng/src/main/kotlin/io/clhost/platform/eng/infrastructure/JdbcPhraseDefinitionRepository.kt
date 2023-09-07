@@ -98,4 +98,19 @@ class JdbcPhraseDefinitionRepository(
 
         jdbcTemplate.update(sql, params)
     }
+
+    override fun delete(phrase: String) {
+        val sql = """
+            DELETE
+            FROM
+                phrase_definition
+            WHERE
+                phrase = :phrase
+        """.trimIndent()
+
+        val params = MapSqlParameterSource()
+            .addValue("phrase", phrase)
+
+        jdbcTemplate.update(sql, params)
+    }
 }

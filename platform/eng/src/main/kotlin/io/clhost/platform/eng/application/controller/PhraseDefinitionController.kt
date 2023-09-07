@@ -25,4 +25,9 @@ class PhraseDefinitionController(
         val command = CreatePhraseDefinitionCommand(phrase)
         return processors.single { it.isSuitable(command) }.process(command)
     }
+
+    @PostMapping("/phrase/{phrase}/delete")
+    fun deletePhrase(@PathVariable phrase: String) {
+        phraseDefinitionService.delete(phrase)
+    }
 }

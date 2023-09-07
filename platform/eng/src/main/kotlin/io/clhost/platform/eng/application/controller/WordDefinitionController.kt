@@ -25,4 +25,9 @@ class WordDefinitionController(
         val command = CreateWordDefinitionCommand(word)
         return processors.single { it.isSuitable(command) }.process(command)
     }
+
+    @PostMapping("/word/{word}/delete")
+    fun deleteWord(@PathVariable word: String) {
+        wordDefinitionService.delete(word)
+    }
 }

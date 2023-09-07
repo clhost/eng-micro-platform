@@ -112,4 +112,19 @@ class JdbcWordDefinitionRepository(
 
         jdbcTemplate.update(sql, params)
     }
+
+    override fun delete(word: String) {
+        val sql = """
+            DELETE
+            FROM
+                word_definition
+            WHERE
+                word = :word
+        """.trimIndent()
+
+        val params = MapSqlParameterSource()
+            .addValue("word", word)
+
+        jdbcTemplate.update(sql, params)
+    }
 }

@@ -14,3 +14,11 @@ data class WordDefinitionDto(
     val tags: MutableSet<String> = mutableSetOf(),
     val synonyms: MutableSet<String> = mutableSetOf()
 )
+
+@Serializable
+data class PhraseDefinitionDto(
+    val phrase: String,
+    val meanings: MutableSet<Meaning> = mutableSetOf(),
+    val translations: MutableSet<Translation> = mutableSetOf(),
+    val tags: MutableSet<String> = mutableSetOf()
+)
