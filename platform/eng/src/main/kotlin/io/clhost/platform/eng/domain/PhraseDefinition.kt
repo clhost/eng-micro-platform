@@ -1,7 +1,6 @@
 package io.clhost.platform.eng.domain
 
 import io.clhost.language.eng.Meaning
-import io.clhost.language.eng.Pronunciation
 import io.clhost.language.eng.Translation
 import java.time.OffsetDateTime
 

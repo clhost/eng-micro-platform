@@ -28,6 +28,9 @@ tasks {
     jar {
         enabled = true
     }
+    bootJar {
+        enabled = false
+    }
 }
 
 dependencies {
@@ -45,6 +48,7 @@ dependencies {
 
     testImplementation(project(":test-extensions"))
 
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
     testImplementation("io.kotest:kotest-runner-junit5:5.5.5")
     testImplementation("io.kotest:kotest-assertions-core:5.5.5")
     testImplementation("io.kotest:kotest-property:5.5.5")

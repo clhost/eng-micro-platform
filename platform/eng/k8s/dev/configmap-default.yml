@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eng
+data:
+  JAVA_TOOL_OPTIONS: "-XX:+PrintFlagsFinal -XX:+UseZGC -XX:ConcGCThreads=4 -XX:+UseContainerSupport -XX:+PreferContainerQuotaForCPUCount -XX:+ExitOnOutOfMemoryError"
+
+  JETTY_THREADS: "200"
+
+  DB_URL: "jdbc:postgresql://postgres:5432/eng-micro-platform?targetServerType=master"
+  DB_USER: "postgres"
+  DB_PASSWORD: "pwd"
+  DB_POOL_SIZE: "10"
+  DB_CONNECTION_TIMEOUT: "1000"
+
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  REDIS_PASSWORD: "pwd"
+  REDIS_MIN_IDLE: "5"
+  REDIS_MAX_IDLE: "10"
+  REDIS_MAX_ACTIVE: "10"
+
+  KAFKA_URL: "kafka:9092"
+  KAFKA_CONCURRENCY: "8"
+
+  CLIENT_URBAN_DICTIONARY_URL: "https://api.urbandictionary.com"
+  CLIENT_DICTIONARY_DIRECT_URL: "https://www.dictionary.com"
+  CLIENT_DICTIONARY_API_URL: "https://api-portal.dictionary.com/dcom"
+  CLIENT_MERRIAM_WEBSTER_URL: "https://dictionaryapi.com/api/v3/references/collegiate/json"
+  CLIENT_YANDEX_CLOUD_TRANSLATE_URL: "https://translate.api.cloud.yandex.net/translate/v2/translate"
+  CLIENT_YANDEX_CLOUD_TOKENS_URL: "https://iam.api.cloud.yandex.net/iam/v1/tokens"

@@ -1,44 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <contextName>gate-orchestrator</contextName>
+    <contextName>eng</contextName>
 
     <appender name="json-console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <jsonGeneratorDecorator
-                    class="ru.itasystems.library.sensitivedatamasker.SensitiveMaskingJsonGeneratorDecorator">
-                <value>email</value>
-                <value>phone</value>
-                <value>phoneNumber</value>
-                <value>cardNo</value>
-                <value>cardHolder</value>
-                <value>expirationYear</value>
-                <value>expirationMonth</value>
-                <value>number</value>
-                <value>cvv</value>
-                <value>cardholderName</value>
-                <value>firstName</value>
-                <value>lastName</value>
-                <value>pocketName</value>
-                <value>pocketReference</value>
-                <value>paymentAccount</value>
-                <value>paymentPurpose</value>
-                <value>username</value>
-                <value>password</value>
-                <value>pam</value>
-                <value>externalAccount</value>
-                <value>description</value>
-                <value>senderMessage</value>
-                <value>recipientPhone</value>
-                <value>senderPhoneNumber</value>
-                <value>senderMessage</value>
-                <value>ekassirPassword</value>
-                <value>apiPassword</value>
-                <value>notificationPassword</value>
-                <value>wsPassword</value>
-                <value>terminalPassword</value>
-                <valueMasker class="ru.itasystems.library.sensitivedatamasker.SensitiveDataMasker"/>
-            </jsonGeneratorDecorator>
             <providers>
                 <contextName>
                     <fieldName>app</fieldName>
@@ -99,14 +65,6 @@
             <level value="info"/>
             <appender-ref ref="json-console"/>
         </root>
-        <logger name="com.zaxxer.hikari">
-            <level value="debug"/>
-            <appender-ref ref="json-console"/>
-        </logger>
-        <logger name="ru.itasystems.app.application.listener">
-            <level value="debug"/>
-            <appender-ref ref="json-console"/>
-        </logger>
     </springProfile>
 
 </configuration>

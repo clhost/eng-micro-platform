@@ -28,6 +28,9 @@ tasks {
     jar {
         enabled = true
     }
+    bootJar {
+        enabled = false
+    }
 }
 
 dependencies {
@@ -43,6 +46,7 @@ dependencies {
 
     testImplementation(project(":test-extensions"))
 
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
     testImplementation("org.springframework.boot:spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-web")

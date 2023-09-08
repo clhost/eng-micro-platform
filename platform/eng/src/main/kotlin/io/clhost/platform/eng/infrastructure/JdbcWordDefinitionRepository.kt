@@ -1,8 +1,8 @@
 package io.clhost.platform.eng.infrastructure
 
+import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.extension.jackson.jsonDecode
 import io.clhost.extension.jackson.jsonEncode
-import io.clhost.platform.eng.domain.WordDefinition
 import io.clhost.platform.eng.domain.WordDefinitionRepository
 import java.sql.ResultSet
 import java.time.OffsetDateTime

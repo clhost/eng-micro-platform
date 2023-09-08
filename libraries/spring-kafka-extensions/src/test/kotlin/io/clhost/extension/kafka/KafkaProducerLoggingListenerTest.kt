@@ -1,6 +1,5 @@
 package io.clhost.extension.kafka
 
-import io.mockk.impl.annotations.SpyK
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.header.internals.RecordHeaders
 import org.hamcrest.MatcherAssert.assertThat
@@ -13,7 +12,6 @@ import java.util.UUID
 
 class KafkaProducerLoggingListenerTest {
 
-    @SpyK
     var kafkaLogger = KafkaLogger()
 
     val correlationId = UUID.randomUUID().toString()

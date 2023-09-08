@@ -65,6 +65,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
+    implementation("net.logstash.logback:logstash-logback-encoder:7.3")
     implementation("io.micrometer:micrometer-registry-prometheus:1.11.3")
 
     testImplementation(project(":test-extensions"))

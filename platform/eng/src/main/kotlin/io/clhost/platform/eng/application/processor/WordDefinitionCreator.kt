@@ -102,9 +102,8 @@ class WordDefinitionCreator(
         wordDefinition: WordDefinition,
         definitions: List<UrbanDictionaryDefinition>
     ) {
-        val topDefinitions = definitions
-            .sortedByDescending { it.thumbsUp - it.thumbsDown }
-            .take(urbanDictionaryDefinitionsCount)
+        val topDefinitions =
+            definitions.sortedByDescending { it.thumbsUp - it.thumbsDown }.take(urbanDictionaryDefinitionsCount)
 
         val meanings = topDefinitions.map { Meaning(it.source, it.definition, example = it.example) }
         appendMeanings(wordDefinition, meanings)

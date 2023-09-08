@@ -1,0 +1,56 @@
+server:
+  jetty:
+    threads:
+      min: ${JETTY_THREADS}
+      max: ${JETTY_THREADS}
+  port: 8080
+spring:
+  datasource:
+    hikari:
+      idle-timeout: 10000
+      max-lifetime: 600000
+      connection-timeout: ${DB_CONNECTION_TIMEOUT}
+      minimum-idle: ${DB_POOL_SIZE}
+      maximum-pool-size: ${DB_POOL_SIZE}
+      pool-name: ${spring.application.name}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+      lettuce:
+        pool:
+          min-idle: ${REDIS_MIN_IDLE}
+          max-idle: ${REDIS_MAX_IDLE}
+          max-active: ${REDIS_MAX_ACTIVE}
+  kafka:
+    bootstrap-servers: ${KAFKA_URL}
+    listener:
+      concurrency: ${KAFKA_CONCURRENCY}
+      missing-topics-fatal: false
+      ack-mode: manual_immediate
+    consumer:
+      auto-offset-reset: earliest
+      group-id: ${spring.application.name}
+    producer:
+      client-id: ${spring.application.name}
+      properties:
+        interceptor:
+          classes: io.clhost.extension.kafka.KafkaProducerLoggingInterceptor
+client:
+  urban-dictionary:
+    url: ${CLIENT_URBAN_DICTIONARY_URL}
+  dictionary:
+    direct-url: ${CLIENT_DICTIONARY_DIRECT_URL}
+    api-url: ${CLIENT_DICTIONARY_API_URL}
+  merriam-webster:
+    url: ${CLIENT_MERRIAM_WEBSTER_URL}
+    api-key: ${CLIENT_MERRIAM_WEBSTER_API_KEY}
+  yandex-cloud:
+    translate-url: ${CLIENT_YANDEX_CLOUD_TRANSLATE_URL}
+    tokens-url: ${CLIENT_YANDEX_CLOUD_TOKENS_URL}
+    folder-id: ${CLIENT_YANDEX_CLOUD_FOLDER_ID}
+    oauth-token: ${CLIENT_YANDEX_CLOUD_OAUTH_TOKEN}

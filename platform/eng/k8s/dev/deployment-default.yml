@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eng
+  labels:
+    app: eng
+    version: "VERSION_PLACEHOLDER"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eng
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: eng
+        version: "VERSION_PLACEHOLDER"
+        prometheus.deckhouse.io/custom-target: eng
+      annotations:
+        prometheus.deckhouse.io/port: "8080"
+        prometheus.deckhouse.io/path: '/actuator/prometheus'
+    spec:
+      containers:
+        - image: localhost:5000/eng:VERSION_PLACEHOLDER
+          imagePullPolicy: Always
+          name: eng
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "k8s"
+          envFrom:
+            - configMapRef:
+                name: eng
+            - secretRef:
+                name: eng
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 1
+            timeoutSeconds: 2
+            failureThreshold: 180
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "0.1"
+            limits:
+              memory: "1536Mi"
+      enableServiceLinks: false
+      imagePullSecrets:
+        - name: regcred

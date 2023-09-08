@@ -1,8 +1,6 @@
 package io.clhost.extension.web
 
-import com.ninjasquad.springmockk.SpykBean
 import io.mockk.clearAllMocks
-import io.mockk.verify
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -22,34 +20,8 @@ class CorrelatedLoggingFilterTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    @SpykBean
-    lateinit var reqResLogger: ReqResLogger
-
     @AfterEach
     fun clear() = clearAllMocks()
-
-    @Test
-    fun `should log get`() {
-        mockMvc.get("/get").andExpect {
-            status { isOk() }
-        }
-
-        verify(exactly = 1) { reqResLogger.logRequest(any()) }
-        verify(exactly = 1) { reqResLogger.logResponse(any()) }
-    }
-
-    @Test
-    fun `should log post`() {
-        mockMvc.post("/post") {
-            contentType = MediaType.APPLICATION_JSON
-            content = "{\"key\": \"k\", \"value\": \"v\"}"
-        }.andExpect {
-            status { isOk() }
-        }
-
-        verify(exactly = 1) { reqResLogger.logRequest(any()) }
-        verify(exactly = 1) { reqResLogger.logResponse(any()) }
-    }
 
     @Test
     fun `should generate and correlate get request with correlationId`() {

@@ -31,7 +31,6 @@ tasks {
 dependencies {
     api("io.mockk:mockk:1.13.4")
     api("org.hamcrest:hamcrest:2.2")
-    api("com.ninja-squad:springmockk:4.0.2")
     api("com.jayway.jsonpath:json-path:2.7.0")
     api("com.jayway.jsonpath:json-path-assert:2.7.0")
     api("org.awaitility:awaitility:4.2.0")
