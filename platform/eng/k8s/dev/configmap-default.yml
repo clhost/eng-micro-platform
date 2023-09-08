@@ -7,7 +7,7 @@ data:
 
   JETTY_THREADS: "200"
 
-  DB_URL: "jdbc:postgresql://postgres:5432/eng-micro-platform?targetServerType=master"
+  DB_URL: "jdbc:postgresql://postgres:5432/eng?targetServerType=master"
   DB_USER: "postgres"
   DB_PASSWORD: "pwd"
   DB_POOL_SIZE: "10"

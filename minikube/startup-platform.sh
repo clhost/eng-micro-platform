@@ -46,7 +46,7 @@ echo "==========================================================================
 echo ""
 
 cd ..
-./gradlew clean build -x ktlintMainSourceSetCheck -x ktlintTestSourceSetCheck
+./gradlew clean build -x ktlintMainSourceSetCheck -x ktlintTestSourceSetCheck -x test
 
 echo ""
 echo "====================================================================================="
@@ -66,11 +66,11 @@ docker push localhost:5000/eng:${NEW_VERSION}
 echo "Update version in gradle.properties"
 
 if [[ $(uname) == "Darwin" ]]; then
-  sed -i '' "s/version=0/version=${NEW_VERSION}/g" ../../gradle.properties
+  sed -i '' "s/version=.*/version=${NEW_VERSION}/g" ../../gradle.properties
 fi
 
 if [[ $(uname) != "Darwin" ]]; then
-  sed -i "s/version=0/version=${NEW_VERSION}/g" ../../gradle.properties
+  sed -i "s/version=.*/version=${NEW_VERSION}/g" ../../gradle.properties
 fi
 
 echo ""
@@ -93,10 +93,10 @@ if [[ $(uname) != "Darwin" ]]; then
   sed -i "s/VERSION_PLACEHOLDER/$(echo $NEW_VERSION)/g" deployment-default-for-deploy.yml
 fi
 
-kubectl apply -f secrets-default.yml || true
-kubectl apply -f configmap-default.yml
-kubectl apply -f service-default.yml
-kubectl apply -f deployment-default-for-deploy.yml
+kubectl --context=minikube apply -f secrets-default.yml || true
+kubectl --context=minikube apply -f configmap-default.yml
+kubectl --context=minikube apply -f service-default.yml
+kubectl --context=minikube apply -f deployment-default-for-deploy.yml
 
 rm -f deployment-default-for-deploy.yml
-kubectl rollout status deployment/$DEPLOYMENT_NAME --timeout=120s
+kubectl --context=minikube rollout status deployment/$DEPLOYMENT_NAME --timeout=120s

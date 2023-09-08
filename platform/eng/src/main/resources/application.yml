@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eng-micro-platform
+    name: eng
   main:
     banner-mode: off
 management:

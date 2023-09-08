@@ -26,6 +26,12 @@ if ! command -v docker > /dev/null; then
     exit 1
 fi
 
+echo ""
+echo "====================================================================================="
+echo "Startup minikube with insecure local registry hosted on localhost:5000"
+echo "====================================================================================="
+echo ""
+
 if [[ $(uname) == "Darwin" ]]; then
   minikube start --insecure-registry "10.0.0.0/24" --vm-driver=hyperkit
 fi
