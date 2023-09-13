@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: eng
+  type: NodePort
   ports:
     - name: http
       protocol: TCP
