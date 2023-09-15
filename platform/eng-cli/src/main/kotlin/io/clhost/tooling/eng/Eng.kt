@@ -16,7 +16,7 @@ import io.clhost.extension.cli.versionOption
 import java.io.File
 import kotlinx.serialization.modules.SerializersModule
 
-val HOME = System.getenv()["HOME"]
+val HOME = System.getenv()["HOME"]!!
 
 val ENG_HOME_DIR = "$HOME/.eng"
 val ENG_CONFIG_FILE = "$ENG_HOME_DIR/config"
@@ -27,11 +27,7 @@ class Eng : CliktCommand(printHelpOnEmptyArgs = true) {
     init {
         completionOption(hidden = true)
         versionOption(File(ENG_VERSION_FILE).read().replace("\n", ""))
-        subcommands(
-            CreateCommand(),
-            GetCommand(),
-            DeleteCommand()
-        )
+        subcommands(CreateCommand(), GetCommand(), DeleteCommand(), RefreshConfigCommand())
     }
 
     override fun run() {}

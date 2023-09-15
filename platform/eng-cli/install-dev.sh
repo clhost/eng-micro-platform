@@ -27,6 +27,15 @@ fish_completions_folder="${HOME}/.config/fish/completions"
 fish_conf_folder="${HOME}/.config/fish/conf.d"
 eng_fish_conf_file="${HOME}/.config/fish/conf.d/eng.fish"
 
+ENG_MICRO_PLATFORM_HOST="localhost"
+
+if command -v minikube > /dev/null; then
+  MINIKUBE_STATUS=$(minikube status | grep "host:" | cut -d " " -f 2)
+  if [[ $MINIKUBE_STATUS == "Running" ]]; then
+    ENG_MICRO_PLATFORM_HOST=$(minikube ip)
+  fi
+fi
+
 # Arguments
 argument="$1"
 
@@ -53,13 +62,18 @@ EOF
 )
 
 eng_default_config=$(cat << EOF
-engMicroPlatformUrl: "http://localhost:11111"
+engMicroPlatformPort: 32000
+engMicroPlatformHost: "$ENG_MICRO_PLATFORM_HOST"
 EOF
 )
 
 echo "A CLI tool to interact with eng-micro-platform"
 echo ""
 echo "Now attempting installation..."
+
+echo ""
+echo "Remove previous installation..."
+rm -rf $ENG_DIR
 
 echo -e "\nBuilding native image..."
 if [ ! -f "build/native/eng" ] || [ "$argument" == "rebuild" ]; then

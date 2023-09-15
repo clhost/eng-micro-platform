@@ -2,7 +2,6 @@ package io.clhost.tooling.engp
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
-import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.help
 import com.github.ajalt.clikt.parameters.options.option
@@ -20,7 +19,7 @@ class StartupCommand : CliktCommand(
     help = "Startup the environment, including minikube with infrastructure services, local registry and applications"
 ) {
 
-    override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./startup.sh"))
+    override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./startup.sh"))
 }
 
 class ShutdownCommand : CliktCommand(
@@ -28,7 +27,7 @@ class ShutdownCommand : CliktCommand(
     help = "Shutdown the environment, including minikube with infrastructure services, local registry and applications"
 ) {
 
-    override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./shutdown.sh"))
+    override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./shutdown.sh"))
 }
 
 class AppCommand : CliktCommand(
@@ -52,7 +51,7 @@ class AppCommand : CliktCommand(
             .choice(*applications.toTypedArray())
             .ensureNotNull()
 
-        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./app-recreate.sh", app))
+        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./app-recreate.sh", app))
     }
 
     class RedeployCommand : CliktCommand(
@@ -69,7 +68,7 @@ class AppCommand : CliktCommand(
             .flag(default = false)
             .help("Should be redeployed with new next version")
 
-        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./app-redeploy.sh", app, "$newVersion"))
+        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./app-redeploy.sh", app, "$newVersion"))
     }
 
     class VersionsCommand : CliktCommand(
@@ -102,7 +101,7 @@ class EnvCommand : CliktCommand(
             .choice(*services.toTypedArray())
             .ensureNotNull()
 
-        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./service-deploy.sh", service))
+        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./service-deploy.sh", service))
     }
 
     class StopCommand : CliktCommand(
@@ -115,7 +114,7 @@ class EnvCommand : CliktCommand(
             .choice(*services.toTypedArray())
             .ensureNotNull()
 
-        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./service-stop.sh", service))
+        override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./service-stop.sh", service))
     }
 }
 
@@ -124,5 +123,5 @@ class RequirementsCommand : CliktCommand(
     help = "Check that all requirements to work with environment is satisfied"
 ) {
 
-    override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilent(listOf("./ensure-requirements.sh"))
+    override fun run() = Shell.on(ENGP_SOURCE_DIR).invokeSilentWithPrint(listOf("./ensure-requirements.sh"))
 }

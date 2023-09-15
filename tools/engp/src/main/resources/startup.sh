@@ -158,3 +158,11 @@ for APP in $APPLICATIONS; do
   ./build-app-sources.sh $APP
   ./build-and-deploy-app.sh $APP $SHOULD_INCREASE_VERSION
 done
+
+echo ""
+echo "Minikube status is"
+minikube status
+
+echo ""
+echo "All done!"
+exit 0

@@ -47,7 +47,7 @@ class ClientsConfiguration(
 
     @Bean
     fun yandexCloudKtorClient() = createKtorClient {
-        useLogging(logBody = false)
+        useLogging(logBody = true)
         useCorrelationId()
         useTimeouts(10000, 10000, 10000)
         usePoolConnections(20, 20)
@@ -57,7 +57,7 @@ class ClientsConfiguration(
 
     @Bean
     fun merriamWebsterKtorClient() = createKtorClient {
-        useLogging()
+        useLogging(logBody = false)
         useCorrelationId()
         useTimeouts(10000, 10000, 10000)
         usePoolConnections(20, 20)

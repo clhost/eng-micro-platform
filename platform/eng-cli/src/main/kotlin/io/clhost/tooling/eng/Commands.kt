@@ -5,9 +5,20 @@ import com.github.ajalt.clikt.parameters.options.help
 import com.github.ajalt.clikt.parameters.options.option
 import io.clhost.extension.cli.OneOfTheOptionsMustBePresent
 import io.clhost.extension.cli.OnlyOneOfTheOptionsMustBePresent
+import io.clhost.extension.cli.Shell
 import io.clhost.extension.cli.clockWaitingBar
 import io.clhost.extension.cli.green
 import kotlinx.coroutines.runBlocking
+
+fun main() {
+    Eng().main(listOf("refresh-config"))
+}
+class RefreshConfigCommand : CliktCommand(
+    name = "refresh-config",
+    help = "Refresh config according to environment"
+) {
+    override fun run() = echo(config.updateEngMicroPlatformHost(Shell.on(HOME).minikubeIp()).encoded())
+}
 
 class CreateCommand : CliktCommand(
     name = "create",

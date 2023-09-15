@@ -53,7 +53,7 @@
         </layout>
     </appender>
 
-    <springProfile name="default | test | ci_test">
+    <springProfile name="default | test | ci_test | k8s">
         <root level="info">
             <level value="info"/>
             <appender-ref ref="plain-console"/>
