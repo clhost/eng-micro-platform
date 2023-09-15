@@ -9,10 +9,10 @@ import io.clhost.language.eng.PhraseDefinitionDto
 import io.clhost.language.eng.Pronunciation
 import io.clhost.language.eng.Translation
 import io.clhost.language.eng.WordDefinitionDto
-import io.clhost.tooling.extensions.handleException
-import io.clhost.tooling.extensions.module
-import io.clhost.tooling.extensions.read
-import io.clhost.tooling.extensions.versionOption
+import io.clhost.extension.cli.handleException
+import io.clhost.extension.cli.module
+import io.clhost.extension.cli.read
+import io.clhost.extension.cli.versionOption
 import java.io.File
 import kotlinx.serialization.modules.SerializersModule
 

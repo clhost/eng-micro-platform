@@ -3,10 +3,10 @@ package io.clhost.tooling.eng
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.help
 import com.github.ajalt.clikt.parameters.options.option
-import io.clhost.tooling.extensions.OneOfTheOptionsMustBePresent
-import io.clhost.tooling.extensions.OnlyOneOfTheOptionsMustBePresent
-import io.clhost.tooling.extensions.clockWaitingBar
-import io.clhost.tooling.extensions.green
+import io.clhost.extension.cli.OneOfTheOptionsMustBePresent
+import io.clhost.extension.cli.OnlyOneOfTheOptionsMustBePresent
+import io.clhost.extension.cli.clockWaitingBar
+import io.clhost.extension.cli.green
 import kotlinx.coroutines.runBlocking
 
 class CreateCommand : CliktCommand(

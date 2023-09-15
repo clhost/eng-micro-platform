@@ -1,8 +1,8 @@
 package io.clhost.tooling.eng
 
+import io.clhost.extension.cli.lightCyan
 import io.clhost.language.eng.PhraseDefinitionDto
 import io.clhost.language.eng.WordDefinitionDto
-import io.clhost.tooling.extensions.lightCyan
 
 fun printWordDefinition(wordDefinition: WordDefinitionDto) {
     println("${"Word: ".lightCyan} ${wordDefinition.word}")

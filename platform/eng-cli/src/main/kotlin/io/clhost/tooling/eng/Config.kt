@@ -1,7 +1,7 @@
 package io.clhost.tooling.eng
 
-import io.clhost.tooling.extensions.read
-import io.clhost.tooling.extensions.yamlDecoded
+import io.clhost.extension.cli.read
+import io.clhost.extension.cli.yamlDecoded
 import java.io.File
 import kotlinx.serialization.Serializable
 

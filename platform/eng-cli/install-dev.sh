@@ -12,6 +12,7 @@ ENG_DIR="$HOME/.eng"
 # Local variables
 eng_version="dev"
 eng_bin_folder="${ENG_DIR}/bin"
+eng_src_folder="${ENG_DIR}/src"
 eng_config_file="${ENG_DIR}/config"
 eng_version_file="${ENG_DIR}/version"
 
@@ -69,6 +70,7 @@ fi
 
 echo -e "\nCreate distribution directories..."
 mkdir -p "$eng_bin_folder" && echo "$eng_bin_folder"
+mkdir -p "$eng_src_folder" && echo "$eng_src_folder"
 
 echo -e "\nMove eng to bin..."
 chmod +x "build/native/eng"

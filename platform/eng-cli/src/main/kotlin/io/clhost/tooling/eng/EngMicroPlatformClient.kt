@@ -4,12 +4,12 @@ import io.clhost.language.eng.CreatePhraseDefinitionCommand
 import io.clhost.language.eng.CreateWordDefinitionCommand
 import io.clhost.language.eng.PhraseDefinitionDto
 import io.clhost.language.eng.WordDefinitionDto
-import io.clhost.tooling.extensions.body
-import io.clhost.tooling.extensions.encoded
-import io.clhost.tooling.extensions.getAsync
-import io.clhost.tooling.extensions.httpClient
-import io.clhost.tooling.extensions.postAsync
-import io.clhost.tooling.extensions.url
+import io.clhost.extension.cli.body
+import io.clhost.extension.cli.encoded
+import io.clhost.extension.cli.getAsync
+import io.clhost.extension.cli.httpClient
+import io.clhost.extension.cli.postAsync
+import io.clhost.extension.cli.url
 
 val engMicroPlatformClient = EngMicroPlatformClient()
 

@@ -13,6 +13,7 @@ plugins {
 
 dependencies {
     implementation(project(":eng-language"))
+    implementation(project(":cli-extensions"))
 
     implementation("com.github.ajalt.clikt:clikt:3.5.2")
     implementation("com.github.tomas-langer:chalk:1.0.2")
@@ -41,6 +42,7 @@ nativeImage {
         add("--allow-incomplete-classpath")
         add("-H:ReflectionConfigurationFiles=reflection.json")
     }
+    @Suppress("DEPRECATION")
     outputDirectory = file("$buildDir/native")
     finalizedBy("nativeExecutablePackaging")
 }
@@ -68,6 +70,7 @@ tasks {
         enabled = true
     }
     register<Zip>("sourcePackaging") {
+        dependsOn("processResources")
         archiveFileName.set("sources.zip")
         destinationDirectory.set(layout.buildDirectory.dir("sources"))
         from(layout.buildDirectory.dir("resources/main"))

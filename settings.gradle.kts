@@ -32,6 +32,9 @@ project(":spring-web-extensions").projectDir = File("libraries/spring-web-extens
 include(":faults-language")
 project(":faults-language").projectDir = File("libraries/faults-language")
 
+include(":cli-extensions")
+project(":cli-extensions").projectDir = File("libraries/cli-extensions")
+
 // platform
 
 include(":eng")
@@ -42,3 +45,8 @@ project(":eng-language").projectDir = File("platform/eng-language")
 
 include(":eng-cli")
 project(":eng-cli").projectDir = File("platform/eng-cli")
+
+// tools
+
+include(":engp")
+project(":engp").projectDir = File("tools/engp")
