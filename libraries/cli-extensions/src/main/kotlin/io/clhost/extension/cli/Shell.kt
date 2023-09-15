@@ -22,33 +22,33 @@ class Shell private constructor(
 
         val reader = BufferedReader(InputStreamReader(process.inputStream))
 
-        reader.forEveryLine { println(it) }
+        process.apply { waitFor(5, TimeUnit.MINUTES) }
 
-        process.apply { waitFor(60, TimeUnit.MINUTES) }
+        reader.forEveryLine { println(it) }
     }
 
     fun invokeWithPrint(command: List<String>): Process {
         val process = ProcessBuilder(*command.toTypedArray())
             .start()
+            .apply { waitFor(5, TimeUnit.MINUTES) }
 
         val reader = BufferedReader(InputStreamReader(process.inputStream))
 
         reader.forEveryLine { println(it) }
 
-        return process.apply { waitFor(60, TimeUnit.MINUTES) }
+        return process
     }
 
     fun invoke(command: List<String>): Process {
         val process = ProcessBuilder(*command.toTypedArray())
             .start()
-        return process.apply { waitFor(60, TimeUnit.MINUTES) }
+        return process.apply { waitFor(5, TimeUnit.MINUTES) }
     }
 }
 
 private fun BufferedReader.forEveryLine(block: (String) -> Unit) {
     while (true) {
         val line = readLine() ?: return
-        if (line.contains("All done!")) return
         block(line)
     }
 }
