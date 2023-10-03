@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pwd
-      POSTGRES_DB: eng-micro-platform
+      POSTGRES_DB: eng
     volumes:
       - ~/eng-micro-platform/pgdata:/var/lib/postgresql/data
   redis:

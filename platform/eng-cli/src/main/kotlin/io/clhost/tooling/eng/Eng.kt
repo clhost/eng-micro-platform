@@ -27,7 +27,7 @@ class Eng : CliktCommand(printHelpOnEmptyArgs = true) {
     init {
         completionOption(hidden = true)
         versionOption(File(ENG_VERSION_FILE).read().replace("\n", ""))
-        subcommands(CreateCommand(), GetCommand(), DeleteCommand(), RefreshConfigCommand())
+        subcommands(CreateCommand(), GetCommand(), DeleteCommand(), UseMinikubeCommand(), UseLocalCommand())
     }
 
     override fun run() {}

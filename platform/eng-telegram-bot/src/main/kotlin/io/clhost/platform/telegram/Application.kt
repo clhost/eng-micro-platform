@@ -1,4 +1,4 @@
-package io.clhost.platform.eng
+package io.clhost.platform.telegram
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -11,7 +11,3 @@ class Application
 fun main(args: Array<String>) {
     runApplication<Application>(*args)
 }
-
-// todo: should add Yandex Dictionary API (because translation api is very poor)
-// todo: registration and identification
-// todo: determination of part of speech (idiom, phrasal verb etc)

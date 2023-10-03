@@ -27,12 +27,12 @@ fish_completions_folder="${HOME}/.config/fish/completions"
 fish_conf_folder="${HOME}/.config/fish/conf.d"
 eng_fish_conf_file="${HOME}/.config/fish/conf.d/eng.fish"
 
-ENG_MICRO_PLATFORM_HOST="localhost"
+ENG_MICRO_PLATFORM_URL="http://localhost:11111"
 
 if command -v minikube > /dev/null; then
   MINIKUBE_STATUS=$(minikube status | grep "host:" | cut -d " " -f 2)
   if [[ $MINIKUBE_STATUS == "Running" ]]; then
-    ENG_MICRO_PLATFORM_HOST=$(minikube ip)
+    ENG_MICRO_PLATFORM_HOST=http://$(minikube ip):32000
   fi
 fi
 
@@ -62,8 +62,7 @@ EOF
 )
 
 eng_default_config=$(cat << EOF
-engMicroPlatformPort: 32000
-engMicroPlatformHost: "$ENG_MICRO_PLATFORM_HOST"
+engMicroPlatformUrl: "$ENG_MICRO_PLATFORM_URL"
 EOF
 )
 

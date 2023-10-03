@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: eng-telegram-bot
+  main:
+    banner-mode: off
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'health,info,prometheus'
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  metrics:
+    enable:
+      kafka: false
+      logback: false
+      spring.kafka: false

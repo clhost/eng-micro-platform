@@ -46,6 +46,9 @@ project(":eng-language").projectDir = File("platform/eng-language")
 include(":eng-cli")
 project(":eng-cli").projectDir = File("platform/eng-cli")
 
+include(":eng-telegram-bot")
+project(":eng-telegram-bot").projectDir = File("platform/eng-telegram-bot")
+
 // tools
 
 include(":engp")

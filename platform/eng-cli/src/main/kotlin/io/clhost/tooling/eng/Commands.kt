@@ -10,14 +10,18 @@ import io.clhost.extension.cli.clockWaitingBar
 import io.clhost.extension.cli.green
 import kotlinx.coroutines.runBlocking
 
-fun main() {
-    Eng().main(listOf("refresh-config"))
-}
-class RefreshConfigCommand : CliktCommand(
-    name = "refresh-config",
-    help = "Refresh config according to environment"
+class UseMinikubeCommand : CliktCommand(
+    name = "use-minikube",
+    help = "Use minikube eng-micro-platform url"
 ) {
-    override fun run() = echo(config.updateEngMicroPlatformHost(Shell.on(HOME).minikubeIp()).encoded())
+    override fun run() = echo(config.useMinikubeIpForEngMicroPlatformUrl(Shell.on(HOME).minikubeIp()).encoded())
+}
+
+class UseLocalCommand : CliktCommand(
+    name = "use-local",
+    help = "Use local eng-micro-platform url"
+) {
+    override fun run() = echo(config.useLocalEngMicroPlatformUrl().encoded())
 }
 
 class CreateCommand : CliktCommand(
